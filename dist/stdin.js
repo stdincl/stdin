@@ -1,3 +1,148 @@
+String.prototype.replaceAll = function(search, replacement) {
+    return this.split(search).join(replacement);
+};
+String.prototype.nl2br = function() {
+    return this.replaceAll('\n','<br />');
+};
+String.prototype.toFilterable = function() {
+    return $.normal(this).replaceAll(' ','').toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u').replaceAll('ñ','n');
+};
+String.prototype.contains = function(search) {
+    return this.indexOf(search)>=0;
+};
+String.prototype.toDate = function(){
+	var d = this.split('-');
+		d[0] = parseInt(d[0],10);
+		d[1] = parseInt(d[1],10);
+		d[2] = parseInt(d[2],10);
+
+		d[0] = isNaN(d[0])?0:d[0];
+		d[1] = isNaN(d[1])?0:(d[1]-1);
+		d[2] = isNaN(d[2])?0:d[2]; 
+
+	var isInvalidDate = (
+		d[0]==0
+		||
+		d[1]==0
+		||
+		d[2]==0
+	);
+	return isInvalidDate?new Date():new Date(d[0],d[1],d[2]);
+};
+String.prototype.toURLFriendly = function(){
+	return this.toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u').replaceAll('ñ','n').replaceAll('ç','c').replaceAll(' ','-').replace(/[^a-z0-9-]/gi, '');
+};
+String.prototype.getExtension = function(){ 
+	return (/(?:\.([^.]+))?$/).exec(this)[1];
+};
+String.prototype.normalize = function(){ 
+	if(this===0){return '0';}
+	if(this===false){return 'false';}
+	if(this===true){return 'true';}
+	return ((this?(this.replace?$('<div></div>').html(this.replace(/<br\s*\/?>/mg,"\n")).text():this):'')+'').toString();
+};
+Array.prototype.mapID = function(varName,property) {
+    return varName + this.map(function(e){ return '['+e[property]+']'; }).join('');
+};
+Array.prototype.clone = function() {
+	return this.slice(0);
+};
+Array.prototype.paginate = function(rpp,p){
+	p--;
+	return this.clone().slice(p * rpp, (p + 1) * rpp);
+};
+Array.prototype.contains = function(search) {
+    return this.indexOf(search)>=0;
+};
+Array.prototype.swap = function(index_A, index_B) {
+    var input = this; 
+    var temp = input[index_A];
+    input[index_A] = input[index_B];
+    input[index_B] = temp;
+};
+Array.prototype.random = function(){
+	return this.sort(function(){
+	  return 0.5 - Math.random();
+	});
+};
+Array.prototype.$ = function(){
+	return $(this.join(''));
+};
+Array.prototype.slider = function(){
+    var pop = [
+        '<div class="io-full">',
+            '<div class="io-full-slider owl-carousel"></div>',
+            '<div class="io-full-slider-close fa fa-times"></div>',
+        '</div>'
+    ].$();
+    var ioFullSliderList = pop.find('.io-full-slider');
+    $.each(this,function(i,imageURL){
+        ['<div class="io-full-slider-image" style="background-image:url(\''+imageURL+'\');"></div>'].$().appendTo(ioFullSliderList);
+    });
+    ioFullSliderList.owlCarousel({
+        nav:this.length>1,
+        items:1
+    });
+    pop.appendTo('body');
+    pop.find('.io-full-slider-close').on('click',function(e){
+        e.preventDefault();
+        pop.removeClass('open');
+        setTimeout(function(){
+            pop.remove();
+        },301)
+    });
+    setTimeout(function(){
+        pop.addClass('open');
+    },10);
+};
+Array.prototype.normalize = function(){ 
+	return this.toString().normalize();
+};
+Number.prototype.replaceAll = function(search,replacement){
+	return (this.valueOf()+"").replaceAll(search,replacement);
+};
+Number.prototype.toFilterable = function(){
+	return (this.valueOf()+"").toFilterable();
+};
+Number.prototype.nl2br = function(){
+	return (this.valueOf()+"").nl2br();
+};
+Number.prototype.round = function(decimals){
+	decimals = decimals?decimals:0;
+	return Math.round(this.valueOf()*Math.pow(10,decimals))/Math.pow(10,decimals);
+};
+Number.prototype.toPercent = function(totalPercent,decimals){
+	totalPercent = totalPercent?totalPercent:1;
+	return ((this.valueOf()*100)/totalPercent).round(decimals);
+};
+Number.prototype.toDate = function(){
+	return new Date(this.valueOf());
+};
+Number.prototype.normalize = function(){ 
+	return this.toString().normalize();
+};
+Date.prototype.toDate = function(){
+	return this.toDateString().toDate();
+};
+Date.prototype.toDateString = function(){
+	var m = this.getMonth()+1; 
+		m = [(m<10?'0':''),m].join('');
+	var d = this.getDate();
+		d = [(d<10?'0':''),d].join('');
+	return [this.getFullYear(),m,d].join('-');
+};
+Date.prototype.diffDays = function(otherDate){ 
+	return ((otherDate.toDate().getTime()-this.getTime())/(1000 * 3600 * 24))+1;
+};
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}; 
+Date.prototype.normalize = function(){ 
+	return this.toString().normalize();
+};
+
 $.fn.hasAttr = function(name) {  
 	return this.attr(name) !== undefined && this.attr(name) !== false;
 };
@@ -10,7 +155,7 @@ $.fn.fill = function(data){
 		f.find('select,[type=file]').trigger('update');
 	});
 };
-$.fn.unitUpdateListeners = function(){
+$.fn.stdinUpdateListeners = function(){
 	return this.each(function(i,f){
 		return $(f).on('update',function(){
 			var t = '&nbsp;';
@@ -31,7 +176,7 @@ $.fn.unitUpdateListeners = function(){
 	});
 };
 $.fn.close = function(){
-	return this.trigger('units-modal-close');
+	return this.trigger('stdin-modal-close');
 };
 const BridePromisePlaceholder = function(){
 	this.thens = [];
@@ -45,9 +190,9 @@ $.fn.bridge = function(path,options){
 	var bridge = new BridePromisePlaceholder();
 	$(this).on('submit',function(e){
 		e.preventDefault();
-		var optionsOverride = $.extend(Units.defaultBridgeOptions,options);
+		var optionsOverride = $.extend(STDin.defaultBridgeOptions,options);
 		optionsOverride.data = new FormData(this);
-		var connection = Units.bridge(path,optionsOverride);
+		var connection = STDin.bridge(path,optionsOverride);
 		bridge.thens.forEach((fn)=>connection.then(fn));
 		bridge.catchs.forEach((fn)=>connection.catch(fn));
 		bridge.finallys.forEach((fn)=>connection.finally(fn));
@@ -56,41 +201,49 @@ $.fn.bridge = function(path,options){
 	return bridge;
 };
 $.fn.modal = function(options){
-	/* 
+	/* 	
+		Options:
+			closer: selector to close window on click
 		Events 
-			close: on window closes (removed from DOM),
-			hide: on window is hidded (not removed from DOM),
-			show: on window is showed
+			close: on modal closes (removed from DOM),
+			hide: on modal is hidded (not removed from DOM),
+			show: on modal is showed
 	*/
-	var settings = $.extend({},options);
+	var settings = $.extend({
+		closer:'.stdin-modal-close-button',
+	},options);
 	return this.each((i,element)=>{
 		var _self = $(element);
 		var w = [
-			'<div class="units-modal units-disabled">',
-				'<div class="units-modal-content units-modal-content-placeholder">',
+			'<div class="stdin-modal stdin-disabled">',
+				'<div class="stdin-modal-content">',
 				'</div>',
 			'</div>'
-		].$().on('units-modal-show',function(){
+		].$().on('stdin-modal-show',function(){
 			_self.trigger('show');
 			setTimeout(()=>{
-				$(this).removeClass('units-disabled');
+				$(this).removeClass('stdin-disabled');
 			},2);
-		}).on('units-modal-hide',function(){
+		}).on('stdin-modal-hide',function(){
 			_self.trigger('hide');
-			$(this).addClass('units-disabled');
-		}).on('units-modal-close',function(){
-			$(this).addClass('units-disabled');
+			$(this).addClass('stdin-disabled');
+		}).on('stdin-modal-close',function(){
+			$(this).addClass('stdin-disabled');
 			_self.trigger('close');
 			setTimeout(()=>{
 				w.remove();
 			},300);
 		});
-		_self.appendTo(w.find('.units-modal-content-placeholder'));
+		_self.appendTo(w.find('.stdin-modal-content'));
+		_self.find(settings.closer).on('click',(e)=>{
+			e.preventDefault();
+			w.trigger('stdin-modal-close');
+		});
 		w.appendTo('body');
-		w.trigger('units-modal-show');
+		w.trigger('stdin-modal-show');
 	});
 };
-window.Units = {
+window.STDin = {
 	server:'',
 	credentials:{},
 	alert:function(options){
@@ -102,7 +255,7 @@ window.Units = {
 		}:options);
 		/* 
 			Returns: 
-				close: on window closes (removed from DOM),
+				close: on modal closes (removed from DOM),
 			Options:
 				title
 				message
@@ -113,22 +266,22 @@ window.Units = {
 			'<div class="units-window">',
 				'<div class="units-head">',
 					'<div class="units-title">',
-						Units.translate(settings.title),
+						STDin.translate(settings.title),
 					'</div>',
 				'</div>',
 				'<div class="units-body">',
 					'<div class="units-wrap">',
-						'<div class="units-data"><p>',Units.translate(settings.message).nl2br(),'</p></div>',
+						'<div class="units-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
 					'</div>',
 				'</div>',
 				'<div class="units-foot">',
 					'<div class="units-actions units-inline">',
-						'<div><a href="#" class="units-primary units-modal-close-button">Entendido</a></div>',
+						'<div><a href="#" class="units-primary stdin-modal-close-button">Entendido</a></div>',
 					'</div>',
 				'</div>',
 			'</div>'
 		].$().modal();
-		w.find('.units-modal-close-button').on('click',function(e){
+		w.find('.stdin-modal-close-button').on('click',function(e){
 			e.preventDefault();
 			w.close();
 		}).get(0).focus();
@@ -159,12 +312,12 @@ window.Units = {
 			'<div class="units-window">',
 				'<div class="units-head">',
 					'<div class="units-title">',
-						Units.translate(settings.title),
+						STDin.translate(settings.title),
 					'</div>',
 				'</div>',
 				'<div class="units-body">',
 					'<div class="units-wrap">',
-						'<div class="units-data"><p>',Units.translate(settings.message).nl2br(),'</p></div>',
+						'<div class="units-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
 					'</div>',
 				'</div>',
 				'<div class="units-foot">',
@@ -187,98 +340,6 @@ window.Units = {
 		});
 		return w;
 	},
-	formInput:function(rowInputSettings){
-		var inputSettings = $.extend({
-			label:'',
-			type:'',
-			options:[], // {{value:1.text:text},...}
-			name:'',
-			value:'',
-			custom:'',
-			placeholder:''
-		},rowInputSettings);
-		if(inputSettings.type==''){
-			return [
-				'<div class="units-input ',inputSettings.custom,'"></div>'
-			].$();
-		}
-		var formHtmlInput = '<input type="'+inputSettings.type+'" class="units-input-component" />';
-		if(inputSettings.type=='hidden'){
-			formHtmlInput = $(formHtmlInput);
-			formHtmlInput.attr({
-				'name':inputSettings.name,
-				'placeholder':inputSettings.placeholder,
-			}).val(inputSettings.value);
-			return formHtmlInput;
-		}
-		var requiresExtraLabel = false;
-		var requiresLabelLink = false;
-		switch(inputSettings.type){
-			case 'select':
-				formHtmlInput = '<select class="units-input-component"></select>';
-				requiresExtraLabel = true;
-			break;
-			case 'button':
-				formHtmlInput = '<button class="units-input-component"></button>';
-			break;
-			case 'textarea':
-				formHtmlInput = '<textarea class="units-input-component"></textarea>';
-			break;
-			case 'file':
-				requiresExtraLabel = true;
-			break;
-			case 'checkbox':
-				requiresExtraLabel = true;
-				requiresLabelLink = true;
-			break;
-			case 'radio':
-				requiresExtraLabel = true;
-				requiresLabelLink = true;
-			break;
-		}
-		var formInput = [
-			'<div class="units-input ',inputSettings.custom,'">',
-				(inputSettings.label!=''?('<label>'+inputSettings.label+'</label>'):''),
-				formHtmlInput,
-				(requiresExtraLabel?'<label class="units-input-override-label"></label>':''),
-			'</div>'
-		].$();
-		if(inputSettings.type=='submit'){
-			formInput.addClass('units-primary');
-		}
-		inputSettings.options.forEach((option)=>{
-			Units.option(option.value,option.text).appendTo(formInput.find('select'));
-		});
-		var formInputComponent = formInput.find('.units-input-component');
-		formInputComponent.attr({
-			'name':inputSettings.name,
-			'placeholder':inputSettings.placeholder,
-		}).val(inputSettings.value);
-		formInputComponent.val(formInputComponent.val());
-		formInput.find('select,[type=file]').unitUpdateListeners();
-		if(requiresLabelLink){
-			var generationKey = 'units-form-'+Date.now();
-			while($('#'+generationKey).length>0){
-				generationKey = 'units-form-'+Date.now()+'-'+Math.round(Math.random()*1000000000);
-			}
-			formInput.find('.units-input-component').attr('id',generationKey);
-			formInput.find('.units-input-override-label').attr('for',generationKey).text(inputSettings.placeholder);
-		}
-		return formInput;
-	},
-	form:function(){
-		let formRows = Array.from(arguments);
-		var unitForm = ['<form class="units-form"></form>'].$();
-		formRows = Array.isArray(formRows)?formRows:[];
-		formRows.forEach((formRowInputs)=>{
-			var formRow = ['<div class="units-fields"></div>'].$();
-			formRowInputs.forEach((rowInputSettings)=>{
-				Units.formInput(rowInputSettings).appendTo(formRow);
-			});
-			formRow.appendTo(unitForm);
-		});
-		return unitForm;
-	},
 	moneyGlobal:function(n){
 		n = parseFloat(n);
 		var c = (n+0.0).toFixed(2).split('.')[1];
@@ -300,23 +361,23 @@ window.Units = {
 	option:function(value,text){
 		return ['<option value="',value,'">',text,'</option>'].$();
 	},
-	location:function(href,code){ 
-		Units.loader(code);
+	location:function(href){ 
+		STDin.loader();
 		location.href = href;
 	},
-	reload:function(code){ 
-		Units.loader(code);
+	reload:function(){ 
+		STDin.loader();
 		location.reload();
 	},
     loader:function(showProgressBar){
     	showProgressBar = showProgressBar?true:false;
       	return [
-      		'<div class="units-loader">',
-				'<b class="fa fa-circle-notch fa-spin fa-3x fa-fw"></b>',
-				(showProgressBar?'<div class="units-loading-bar"><div class="units-loading-progress"></div></div>':''),
+      		'<div class="stdin-loader">',
+				'<b class="fa fa-spinner fa-3x fa-pulse"></b>',
+				(showProgressBar?'<div class="stdin-loading-bar"><div class="stdin-loading-progress"></div></div>':''),
 			'</div>'
       	].$().on('progress',function(e,progress){
-      		$(this).find('.units-loading-progress').css('width',progress+'%');
+      		$(this).find('.stdin-loading-progress').css('width',progress+'%');
       	}).appendTo('body');
     },
 	translate:function(c){
@@ -340,7 +401,7 @@ window.Units = {
 			Returns Promise
 		*/
 		this.path = path;
-		this.settings = $.extend(Units.defaultBridgeOptions,options);
+		this.settings = $.extend(STDin.defaultBridgeOptions,options);
 		if(!(this.settings.data instanceof FormData)){
 			this.settings.data = $.extend({},this.settings.data);
 			var formDataCollector = new FormData();
@@ -351,12 +412,12 @@ window.Units = {
 		}
 		this.settings.hasFiles = Array.from(this.settings.data.values()).filter((value)=>value.name?true:false).length>0;
 		if(this.settings.loader){
-			this.settings.loaderElement = Units.loader(this.settings.hasFiles);
+			this.settings.loaderElement = STDin.loader(this.settings.hasFiles);
 		}
 		return new Promise((resolve,reject)=>{
 			const ajaxSetup = {
 				type:this.settings.method,
-				url:Units.server+'/bridge/'+this.path+'/',
+				url:STDin.server+'/bridge/'+this.path+'/',
 				data:this.settings.data,
 				cache: false,
 			    contentType: false,
@@ -367,8 +428,8 @@ window.Units = {
 					request.setRequestHeader('expires', '0');
 					request.setRequestHeader('expires', 'Tue, 01 Jan 1981 1:00:00 GMT');
 					request.setRequestHeader('pragma', 'no-cache');
-					Object.keys(Units.credentials).forEach((credentialKey)=>{
-						request.setRequestHeader('Auth',credentialKey+' ' + Units.credentials[credentialKey]);
+					Object.keys(STDin.credentials).forEach((credentialKey)=>{
+						request.setRequestHeader('Auth',credentialKey+' ' + STDin.credentials[credentialKey]);
 					});
 					Object.keys(this.settings.headers).forEach((headerKey)=>{
 						request.setRequestHeader(headerKey,this.settings.headers[headerKey]);
@@ -391,7 +452,7 @@ window.Units = {
 				if(!response.responseJSON){
 					response = {
 						responseJSON:{
-							error:Units.translate('.service-unavailable'),
+							error:STDin.translate('.service-unavailable'),
 							error_code:'.service-unavailable'
 						}
 					};
@@ -406,6 +467,5 @@ window.Units = {
 	}
 };
 $(()=>{
-	$('.units-input select,.units-input [type=file]').unitUpdateListeners();
-	((typeof feather)!=='undefined')?feather.replace():null;
+	$('.stdin-input select,.stdin-input [type=file]').stdinUpdateListeners();
 });

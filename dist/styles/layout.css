@@ -14,3 +14,9 @@
 		.stdin-row > .stdin-cell:last-child {
 			margin-right:0;
 		}
+		.stdin-row:first-child > .stdin-cell {
+			margin-top:0;
+		}
+		.stdin-row:last-child > .stdin-cell {
+			margin-bottom:0;
+		}

@@ -3,9 +3,37 @@
 <head>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" type="text/css" href="stdin.css" />
+	<link rel="stylesheet" type="text/css" href="dist/stdin.css" />
 	
 	<link rel="stylesheet" type="text/css" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/@chenfengyuan/datepicker/dist/datepicker.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/animate.css/animate.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/trumbowyg/dist/ui/trumbowyg.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/owl.carousel/dist/assets/owl.carousel.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/simplebar/dist/simplebar.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/protip/protip.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/animate.css/animate.min.css" />
+	<link rel="stylesheet" type="text/css" href="node_modules/quill/dist/quill.bubble.css" />
+	<script type="text/javascript" src="node_modules/quill/dist/quill.min.js"></script>
+	<script type="text/javascript" src="node_modules/moment/moment.js"></script>
+	<script type="text/javascript" src="node_modules/moment/locale/es-mx.js"></script>
+	<script type="text/javascript" src="node_modules/@editorjs/editorjs/dist/editor.js"></script>
+	<script type="text/javascript" src="node_modules/feather-icons/dist/feather.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="node_modules/@chenfengyuan/datepicker/dist/datepicker.min.js"></script>
+	<script type="text/javascript" src="node_modules/gmap3/dist/gmap3.min.js"></script>
+	<script type="text/javascript" src="node_modules/inputmask/dist/jquery.inputmask.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery.rut/jquery.rut.min.js"></script>
+	<script type="text/javascript" src="node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="node_modules/simplebar/dist/simplebar.min.js"></script>
+	<script type="text/javascript" src="node_modules/socket.io-client/dist/socket.io.min.js"></script>
+	<script type="text/javascript" src="node_modules/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="node_modules/trumbowyg/dist/trumbowyg.min.js"></script>
+	<script type="text/javascript" src="node_modules/protip/protip.min.js"></script>
+	<script type="text/javascript" src="dist/stdin.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Standard Inputs</title>
@@ -21,42 +49,82 @@
 			box-shadow:var(--stdin-shadow-strong);
 		}
 	</style>
+	<script type="text/javascript">$(()=>{
+		[
+			'<div class="stdin-card">',
+				'<div class="stdin-card-head">',
+					'<div class="stdin-title">',
+						'Modal form',
+						'<a class="stdin-modal-close-button"><i class="fa fa-times"></i></a>',
+					'</div>',
+				'</div>',
+				'<div class="stdin-card-body">',
+					'<div class="stdin-row">',
+						'<div class="stdin-cell">',
+							'<div class="stdin-input">',
+								'<label>Text input</label>',
+								'<input type="text" />',
+							'</div>',
+						'</div>',
+						'<div class="stdin-cell">',
+							'<div class="stdin-input">',
+								'<label>Password input</label>',
+								'<input type="password" />',
+							'</div>',
+						'</div>',
+					'</div>',
+					'<div class="stdin-row">',
+						'<div class="stdin-cell">',
+							'<div class="stdin-input">',
+								'<input type="submit" value="Save" />',
+							'</div>',
+						'</div>',
+					'</div>',
+				'</div>',
+			'</div>'
+		].$().modal();
+	})</script>
 </head>
 <body>
 
 	<div class="example-wrap">
-		<h2>Basic inputs</h2>
-			<div class="stdin-row">
-				<div class="stdin-cell">
-					<div class="stdin-input">
-						<label>Text input</label>
-						<input type="text" />
-					</div>
-				</div>
-				<div class="stdin-cell">
-					<div class="stdin-input">
-						<label>Password input</label>
-						<input type="password" />
-					</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
+				<h2>Basic inputs</h2>
+			</div>
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
+				<div class="stdin-input">
+					<label>Text input</label>
+					<input type="text" />
 				</div>
 			</div>
-			<div class="stdin-row">
-				<div class="stdin-cell">
-					<div class="stdin-input">
-						<label>Text input with icon</label>
-						<input type="text" />
-					</div>
+			<div class="stdin-cell">
+				<div class="stdin-input">
+					<label>Password input</label>
+					<input type="password" />
 				</div>
 			</div>
-			<div class="stdin-row">
-				<div class="stdin-cell">
-					<div class="stdin-input">
-						<label>Text input with action</label>
-						<input type="text" />
-					</div>
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
+				<div class="stdin-input">
+					<label>Text input with icon</label>
+					<input type="text" />
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
+				<div class="stdin-input">
+					<label>Text input with action</label>
+					<input type="text" />
+				</div>
+			</div>
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>
 						Select
@@ -79,321 +147,66 @@
 					<label>Option A</label>
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>File</label>
 					<input type="file" />
 					<label>Selecciona un documento</label>
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>Checkbox</label>
 					<input type="checkbox" id="checkbox" />
-					<label for="checkbox"><p>Terminos y condiciones explicitas ingresadas en este texto largo que parece un parrafo <a href="//stdin.cl">to stdin.cl</a></p></label>
+					<label for="checkbox"><p>
+						Terminos y condiciones explicitas ingresadas en este texto largo que parece un parrafo <a href="//stdin.cl">to stdin.cl</a>
+						<br><br>
+									¿No encuentras tu país en la lista? Recibe una notificación en cuanto hayamos llegado a tu país.
+					</p></label>
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>Radiobutton</label>
 					<input type="radio" id="radio" />
 					<label for="radio">Checkable with link <a href="//stdin.cl">to stdin.cl</a></label>
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>Textarea</label>
 					<textarea></textarea>
 				</div>
 			</div>
-			<div class="stdin-row">
+		</div>
+		<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input stdin-clear">
 					<label>Button input</label>
 					<input type="button" value="Button input" />
 				</div>
 			</div>
-			<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>Submit input</label>
 					<input type="submit" value="Submit input" />
 				</div>
 			</div>
-			<div class="stdin-row">
+			<div class="stdin-cell">
 				<div class="stdin-input">
 					<label>Button</label>
 					<button>Button</button>
 				</div>
 			</div>
-
-		<h2>Inputs with icons</h2>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input</label>
-					<i class="fa fa-star"></i>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Password input</label>
-					<i class="fa fa-star"></i>
-					<input type="password" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with icon</label>
-					<i class="fa fa-star"></i>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with action</label>
-					<i class="fa fa-star"></i>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Select</label>
-					<i class="fa fa-star"></i>
-					<select>
-						<option>Option A</option>
-						<option>Option B</option>
-						<option>Option C</option>
-					</select>
-					<label>Option A</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>File</label>
-					<i class="fa fa-star"></i>
-					<input type="file" />
-					<label>Selecciona un documento</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Checkbox</label>
-					<i class="fa fa-star"></i>
-					<input type="checkbox" id="checkbox" />
-					<label for="checkbox">Check</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Radiobutton</label>
-					<i class="fa fa-star"></i>
-					<input type="radio" id="radio" />
-					<label for="radio">Radio</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Textarea</label>
-					<i class="fa fa-star"></i>
-					<textarea></textarea>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Button input</label>
-					<i class="fa fa-star"></i>
-					<input type="button" value="Button input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Submit input</label>
-					<i class="fa fa-star"></i>
-					<input type="submit" value="Submit input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input stdin-primary">
-					<label>Button</label>
-					<i class="fa fa-star"></i>
-					<button>Button</button>
-				</div>
-			</div>
-
-		<h2>Inputs with action</h2>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input</label>
-					<a class="fa fa-plus"></a>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Password input</label>
-					<a class="fa fa-plus"></a>
-					<input type="password" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with icon</label>
-					<a class="fa fa-plus"></a>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with action</label>
-					<a class="fa fa-plus"></a>
-					<input type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Select</label>
-					<a class="fa fa-plus"></a>
-					<select>
-						<option>Option A</option>
-						<option>Option B</option>
-						<option>Option C</option>
-					</select>
-					<label>Option A</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>File</label>
-					<a class="fa fa-plus"></a>
-					<input type="file" />
-					<label>Selecciona un documento</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Checkbox</label>
-					<a class="fa fa-plus"></a>
-					<input type="checkbox" id="checkbox" />
-					<label for="checkbox"></label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Radiobutton</label>
-					<a class="fa fa-plus"></a>
-					<input type="radio" id="radio" />
-					<label for="radio"></label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Textarea</label>
-					<a class="fa fa-plus"></a>
-					<textarea></textarea>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Button input</label>
-					<a class="fa fa-plus"></a>
-					<input type="button" value="Button input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input stdin-primary">
-					<label>Submit input</label>
-					<a class="fa fa-plus"></a>
-					<input type="submit" value="Submit input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Button</label>
-					<a class="fa fa-plus"></a>
-					<button>Button</button>
-				</div>
-			</div>
-
-		<h2>Inputs disabled</h2>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input</label>
-					<input disabled="disabled" type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Password input</label>
-					<input disabled="disabled" type="password" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with icon</label>
-					<input disabled="disabled" type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Text input with action</label>
-					<input disabled="disabled" type="text" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Select</label>
-					<select disabled="disabled">
-						<option>Option A</option>
-						<option>Option B</option>
-						<option>Option C</option>
-					</select>
-					<label>Option A</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>File</label>
-					<input disabled="disabled" type="file" />
-					<label>Selecciona un documento</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Checkbox</label>
-					<input disabled="disabled" type="checkbox" id="checkbox" />
-					<label for="checkbox">Checkbox <a>link</a></label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Radiobutton</label>
-					<input disabled="disabled" type="radio" id="radio" />
-					<label for="radio">Radiobutton</label>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Textarea</label>
-					<textarea disabled="disabled"></textarea>
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input">
-					<label>Button input</label>
-					<input disabled="disabled" type="button" value="Button input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input stdin-primary">
-					<label>Submit input</label>
-					<input disabled="disabled" type="submit" value="Submit input" />
-				</div>
-			</div>
-			<div class="stdin-row">
-				<div class="stdin-input stdin-primary">
-					<label>Button</label>
-					<button disabled="disabled">Button</button>
-				</div>
-			</div>
-</div>
+		</div>
+	</div>
 </body>
 </html>

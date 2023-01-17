@@ -21,6 +21,7 @@
     "moment": "^2.29.1",
     "owl.carousel": "^2.3.4",
     "protip": "^1.4.21",
+    "quill": "^1.3.7",
     "simplebar": "^5.3.6",
     "socket.io-client": "^4.4.1",
     "tablesorter": "^2.31.3",

@@ -88,14 +88,12 @@
 			box-sizing:border-box;
 			width:100%;
 			outline:none;
-			font-size:var(--stdin-ui-input-font-size);
-			height:var(--stdin-ui-input-font-size);
 			line-height:1;
+			font-size:var(--stdin-ui-input-font-size);
 			padding:var(--stdin-ui-input-padding);
 			height:var(--stdin-ui-input-height);
 			color:var(--stdin-text-default);
 			-webkit-appearance:none;
-			transition:.2s ease box-shadow;
 		}
 		.stdin-input > button:focus,
 		.stdin-input > input:focus,
@@ -170,6 +168,7 @@
 				cursor:pointer;
 				line-height:0;
 				font-weight:500;
+				height:auto;
 				font-size:var(--stdin-ui-input-check-font-size);
 				padding-left:calc(var(--stdin-ui-input-check-size) + (var(--stdin-ui-input-padding)*0.5));
 			}
@@ -207,8 +206,7 @@
 				    line-height:0;
 				    position:absolute;
 				    left:0;
-				    top:50%;
-				    margin-top:calc(var(--stdin-ui-input-check-size)*-0.5);
+				    top:calc(var(--stdin-ui-input-check-size)*0.5);
 					font-size:0px;
 					box-shadow:var(--stdin-shadow-normal);
 				}
@@ -367,6 +365,10 @@
 		.stdin-input > *:disabled + label a {
 			color:var(--stdin-ui-input-disabled-color);
 			pointer-events:none;
+		}
+		.stdin-input > *:disabled + label:after {
+			color:var(--stdin-ui-input-disabled-color);
+			border-color:var(--stdin-ui-input-disabled-color);
 		}
 
 		.stdin-input > [type=submit]:disabled,

@@ -1,0 +1,16 @@
+/* layout  */
+	.stdin-row {
+		display:flex;
+		flex-direction:row;
+		align-items:flex-start;
+	}
+		.stdin-row > .stdin-cell {
+			flex:1;
+			margin:calc(var(--stdin-layout-spacing)*1.2) var(--stdin-layout-spacing);
+		}
+		.stdin-row > .stdin-cell:first-child {
+			margin-left:0
+		}
+		.stdin-row > .stdin-cell:last-child {
+			margin-right:0;
+		}

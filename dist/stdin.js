@@ -295,6 +295,7 @@ window.STDin = {
 				'</div>',
 			'</div>'
 		].$().modal();
+		w.find('.stdin-modal-close-button').get(0).focus();
 		return w;
 	},
 	confirm:function(options){

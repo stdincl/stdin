@@ -9,10 +9,9 @@
 	--stdin-ui-color-primary-active:#544cf9;
 	--stdin-ui-color-primary-contrast:#ffffff;
 	
-	--stdin-ui-color-constructive:#645bff;
-	--stdin-ui-color-destructive:red;
-	--stdin-ui-color-warning:yellow;
-	--stdin-ui-color-trust:green;
+	--stdin-ui-color-constructive:#A3CB38;
+	--stdin-ui-color-destructive:#ED4C67;
+	--stdin-ui-color-warning:#F79F1F;
 
 	--stdin-text-strong:#1a1f36;
 	--stdin-text-default:#3c4257;

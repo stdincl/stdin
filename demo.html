@@ -37,173 +37,154 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Standard Inputs</title>
-	<style type="text/css">
-		body {
-			background:#f5f7fa;
-		}
-		.example-wrap {
-			background:#fff;
-			padding:50px;
-			max-width:600px;
-			margin:0 auto;
-			box-shadow:var(--stdin-shadow-strong);
-		}
-	</style>
-	<script type="text/javascript">$(()=>{
-		[
-			'<div class="stdin-card">',
-				'<div class="stdin-card-head">',
-					'<div class="stdin-title">',
-						'Modal form',
-						'<a class="stdin-modal-close-button"><i class="fa fa-times"></i></a>',
-					'</div>',
-				'</div>',
-				'<div class="stdin-card-body">',
-					'<div class="stdin-row">',
-						'<div class="stdin-cell">',
-							'<div class="stdin-input">',
-								'<label>Text input</label>',
-								'<input type="text" />',
-							'</div>',
-						'</div>',
-						'<div class="stdin-cell">',
-							'<div class="stdin-input">',
-								'<label>Password input</label>',
-								'<input type="password" />',
-							'</div>',
-						'</div>',
-					'</div>',
-					'<div class="stdin-row">',
-						'<div class="stdin-cell">',
-							'<div class="stdin-input">',
-								'<input type="submit" value="Save" />',
-							'</div>',
-						'</div>',
-					'</div>',
-				'</div>',
-			'</div>'
-		].$().modal();
-	})</script>
 </head>
-<body>
+<body style="background:#f5f7fa;">
 
-	<div class="example-wrap">
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<h2>Basic inputs</h2>
-			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Text input</label>
-					<input type="text" />
+	<div class="stdin-card">
+		<div class="stdin-card-body">
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<h2>Actions</h2>
 				</div>
 			</div>
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Password input</label>
-					<input type="password" />
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-actions">
+						<label>Label</label>
+						<select>
+							<option value="0">Action #1</option>
+							<option value="1">Action #2</option>
+							<option value="2">Action #3</option>
+							<option value="3">Action #4</option>
+							<option value="4">Action #5</option>
+						</select>
+						<div>
+							<a href="#" class="stdin-destructive">Action #1</a>
+							<a href="#" class="stdin-constructive">Action #2</a>
+							<a href="#" class="stdin-warning">Action #3</a>
+							<a href="#" class="stdin-primary">Action #4</a>
+							<a href="#">Action #5</a>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Text input with icon</label>
-					<input type="text" />
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<h2>Basic inputs</h2>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Text input with action</label>
-					<input type="text" />
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Text input</label>
+						<input type="text" />
+					</div>
+				</div>
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Password input</label>
+						<input type="password" />
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>
-						Select
-						<i class="fa fa-info-circle">
-							<span>
-								<p>
-									Selecciona el <a href="//google.com/?q=chile">país</a> o la región donde está constituida tu empresa. Si eres un individuo, selecciona el lugar desde donde haces tus negocios.
-									<br><br>
-									¿No encuentras tu país en la lista? Recibe una notificación en cuanto hayamos llegado a tu país.
-								</p>
-							</span>
-						</i> 
-						<a>Más información</a>
-					</label>
-					<select>
-						<option>Option A</option>
-						<option>Option B</option>
-						<option>Option C</option>
-					</select>
-					<label>Option A</label>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Text input with icon</label>
+						<input type="text" />
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>File</label>
-					<input type="file" />
-					<label>Selecciona un documento</label>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Text input with action</label>
+						<input type="text" />
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Checkbox</label>
-					<input type="checkbox" id="checkbox" />
-					<label for="checkbox"><p>
-						Terminos y condiciones explicitas ingresadas en este texto largo que parece un parrafo <a href="//stdin.cl">to stdin.cl</a>
-						<br><br>
-									¿No encuentras tu país en la lista? Recibe una notificación en cuanto hayamos llegado a tu país.
-					</p></label>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>
+							Select
+							<i class="fa fa-info-circle">
+								<span>
+									<p>
+										Selecciona el <a href="//google.com/?q=chile">país</a> o la región donde está constituida tu empresa. Si eres un individuo, selecciona el lugar desde donde haces tus negocios.
+										<br><br>
+										¿No encuentras tu país en la lista? Recibe una notificación en cuanto hayamos llegado a tu país.
+									</p>
+								</span>
+							</i> 
+							<a>Más información</a>
+						</label>
+						<select>
+							<option>Option A</option>
+							<option>Option B</option>
+							<option>Option C</option>
+						</select>
+						<label>Option A</label>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Radiobutton</label>
-					<input type="radio" id="radio" />
-					<label for="radio">Checkable with link <a href="//stdin.cl">to stdin.cl</a></label>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>File</label>
+						<input type="file" />
+						<label>Selecciona un documento</label>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Textarea</label>
-					<textarea></textarea>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Checkbox</label>
+						<input type="checkbox" id="checkbox" />
+						<label for="checkbox"><p>
+							Terminos y condiciones explicitas ingresadas en este texto largo que parece un parrafo <a href="//stdin.cl">to stdin.cl</a>
+							<br><br>
+										¿No encuentras tu país en la lista? Recibe una notificación en cuanto hayamos llegado a tu país.
+						</p></label>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="stdin-row">
-			<div class="stdin-cell">
-				<div class="stdin-input stdin-clear">
-					<label>Button input</label>
-					<input type="button" value="Button input" />
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Radiobutton</label>
+						<input type="radio" id="radio" />
+						<label for="radio">Checkable with link <a href="//stdin.cl">to stdin.cl</a></label>
+					</div>
 				</div>
 			</div>
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Submit input</label>
-					<input type="submit" value="Submit input" />
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Textarea</label>
+						<textarea></textarea>
+					</div>
 				</div>
 			</div>
-			<div class="stdin-cell">
-				<div class="stdin-input">
-					<label>Button</label>
-					<button>Button</button>
+			<div class="stdin-row">
+				<div class="stdin-cell">
+					<div class="stdin-input stdin-clear">
+						<label>Button input</label>
+						<input type="button" value="Button input" />
+					</div>
+				</div>
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Submit input</label>
+						<input type="submit" value="Submit input" />
+					</div>
+				</div>
+				<div class="stdin-cell">
+					<div class="stdin-input">
+						<label>Button</label>
+						<button>Button</button>
+					</div>
 				</div>
 			</div>
 		</div>

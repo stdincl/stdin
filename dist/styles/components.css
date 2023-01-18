@@ -66,6 +66,9 @@
 		    padding:80px;
 		    box-sizing:border-box;
 		}
+		.stdin-modal .stdin-modal-content > * {
+			max-width:600px;
+		}
 
 /* Card */
 	.stdin-card {
@@ -81,8 +84,14 @@
 			margin-bottom:calc(var(--stdin-ui-component-spacing)*-0.3);
 		}
 		.stdin-card .stdin-card-body {
-			max-width:600px;
 			padding:calc(var(--stdin-ui-component-spacing)*0.8) var(--stdin-ui-component-spacing);
+		}
+		.stdin-card .stdin-card-foot {
+			display:flex; 
+			flex-direction:column;
+			padding:calc(var(--stdin-ui-component-spacing)*0.8) var(--stdin-ui-component-spacing);
+			padding-top:0;
+			margin-top:calc(var(--stdin-ui-component-spacing)*-0.3);
 		}
 
 /* Title */
@@ -125,3 +134,24 @@
 			.stdin-title > a > i:before {
 				line-height:inherit;
 			}
+
+/* Data container */
+	.stdin-data {}
+
+
+/* Action button */
+	.stdin-actions {
+		
+	}
+		.stdin-actions > label {
+		}
+		.stdin-actions > select {
+			display:none;
+		}
+		.stdin-actions > div {
+
+		}
+			.stdin-actions > div > a {
+				
+			}
+		

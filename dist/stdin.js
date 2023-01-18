@@ -155,6 +155,21 @@ $.fn.fill = function(data){
 		f.find('select,[type=file]').trigger('update');
 	});
 };
+$.fn.stdinActionListeners = function(){
+	return this.each(function(i,a){
+		var _self = $(a);
+		var _select = _self.find('select');
+		$.each(_self.find('div a'),(i,b)=>{
+			STDin.option(i,$(b).text()).appendTo(_select);
+		});
+		_select.on('change',function(e){
+			var selectedIndex = parseInt($(this).val(),10);
+			$(_self.find('div a').get(selectedIndex)).trigger('click');
+			$(this).val('-');
+		});
+		return _self;
+	});
+};
 $.fn.stdinUpdateListeners = function(){
 	return this.each(function(i,f){
 		return $(f).on('update',function(){
@@ -251,11 +266,12 @@ window.STDin = {
 			title:'Mensaje',
 			message:''
 		},typeof options==='string'?{
+			title:'Alert',
 			message:options
 		}:options);
 		/* 
 			Returns: 
-				close: on modal closes (removed from DOM),
+				DOM Element
 			Options:
 				title
 				message
@@ -263,28 +279,22 @@ window.STDin = {
 				[$.fn.modal..]events
 		*/
 		var w = [
-			'<div class="units-window">',
-				'<div class="units-head">',
-					'<div class="units-title">',
+			'<div class="stdin-card">',
+				'<div class="stdin-card-head">',
+					'<div class="stdin-title">',
 						STDin.translate(settings.title),
 					'</div>',
 				'</div>',
-				'<div class="units-body">',
-					'<div class="units-wrap">',
-						'<div class="units-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
-					'</div>',
+				'<div class="stdin-card-body">',
+					'<div class="stdin-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
 				'</div>',
-				'<div class="units-foot">',
-					'<div class="units-actions units-inline">',
-						'<div><a href="#" class="units-primary stdin-modal-close-button">Entendido</a></div>',
+				'<div class="stdin-card-foot">',
+					'<div class="stdin-input stdin-primary">',
+						'<input type="button" class="stdin-modal-close-button" value="',STDin.translate('done').nl2br(),'" />',
 					'</div>',
 				'</div>',
 			'</div>'
 		].$().modal();
-		w.find('.stdin-modal-close-button').on('click',function(e){
-			e.preventDefault();
-			w.close();
-		}).get(0).focus();
 		return w;
 	},
 	confirm:function(options){
@@ -309,32 +319,36 @@ window.STDin = {
 			message:options
 		}:options);
 		var w = [
-			'<div class="units-window">',
-				'<div class="units-head">',
-					'<div class="units-title">',
+			'<div class="stdin-card">',
+				'<div class="stdin-card-head">',
+					'<div class="stdin-title">',
 						STDin.translate(settings.title),
 					'</div>',
 				'</div>',
-				'<div class="units-body">',
-					'<div class="units-wrap">',
-						'<div class="units-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
-					'</div>',
+				'<div class="stdin-card-body">',
+					'<div class="stdin-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
 				'</div>',
-				'<div class="units-foot">',
-					'<div class="units-actions units-inline">',
-						'<div><a href="#" class="units-primary  units-modal-accept-button">',settings.accept,'</a></div>',
-					'</div>',
-					'<div class="units-actions units-inline">',
-						'<div><a href="#" class="units-modal-cancel-button">',settings.cancel,'</a></div>',
+				'<div class="stdin-card-foot">',
+					'<div class="stdin-row">',
+						'<div class="stdin-cell">',
+							'<div class="stdin-input">',
+								'<input type="button" class="stdin-modal-cancel-button" value="',STDin.translate(settings.cancel).nl2br(),'" />',
+							'</div>',
+						'</div>',
+						'<div class="stdin-cell">',
+							'<div class="stdin-input stdin-primary">',
+								'<input type="button" class="stdin-modal-accept-button" value="',STDin.translate(settings.accept).nl2br(),'" />',
+							'</div>',
+						'</div>',
 					'</div>',
 				'</div>',
 			'</div>'
 		].$().modal();
-		w.find('.units-modal-cancel-button').on('click',function(e){
+		w.find('.stdin-modal-cancel-button').on('click',function(e){
 			e.preventDefault();
 			w.trigger('cancel').trigger('resolve',[false]).close();
-		}).get(0).focus();;
-		w.find('.units-modal-accept-button').on('click',function(e){
+		}).get(0).focus();
+		w.find('.stdin-modal-accept-button').on('click',function(e){
 			e.preventDefault();
 			w.trigger('accept').trigger('resolve',[true]).close();
 		});
@@ -468,4 +482,5 @@ window.STDin = {
 };
 $(()=>{
 	$('.stdin-input select,.stdin-input [type=file]').stdinUpdateListeners();
+	$('.stdin-actions').stdinActionListeners();
 });

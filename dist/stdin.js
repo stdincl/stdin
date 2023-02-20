@@ -5,7 +5,7 @@ String.prototype.nl2br = function() {
     return this.replaceAll('\n','<br />');
 };
 String.prototype.toFilterable = function() {
-    return $.normal(this).replaceAll(' ','').toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u').replaceAll('ñ','n');
+    return (this).normalize().replaceAll(' ','').toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u').replaceAll('ñ','n');
 };
 String.prototype.contains = function(search) {
     return this.indexOf(search)>=0;

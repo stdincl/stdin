@@ -1,4 +1,6 @@
 /* Modifiers */
+	.stdin-constructive {}
+	.stdin-destructive {}
 	.stdin-inline {}
 	.stdin-top {}
 	.stdin-bottom {}
@@ -510,6 +512,7 @@
 			margin-bottom:calc(var(--stdin-ui-component-spacing)*-0.3);
 		}
 		.stdin-card .stdin-card-body {
+			position:relative;
 			padding:calc(var(--stdin-ui-component-spacing)*0.8) var(--stdin-ui-component-spacing);
 		}
 		.stdin-card .stdin-card-foot {

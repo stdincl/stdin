@@ -70,21 +70,21 @@ Array.prototype.$ = function(){
 };
 Array.prototype.slider = function(){
     var pop = [
-        '<div class="io-full">',
-            '<div class="io-full-slider owl-carousel"></div>',
-            '<div class="io-full-slider-close fa fa-times"></div>',
+        '<div class="stdin-full">',
+            '<div class="stdin-full-slider owl-carousel"></div>',
+            '<div class="stdin-full-slider-close fa fa-times"></div>',
         '</div>'
     ].$();
-    var ioFullSliderList = pop.find('.io-full-slider');
+    var ioFullSliderList = pop.find('.stdin-full-slider');
     $.each(this,function(i,imageURL){
-        ['<div class="io-full-slider-image" style="background-image:url(\''+imageURL+'\');"></div>'].$().appendTo(ioFullSliderList);
+        ['<div class="stdin-full-slider-image" style="background-image:url(\''+imageURL+'\');"></div>'].$().appendTo(ioFullSliderList);
     });
     ioFullSliderList.owlCarousel({
         nav:this.length>1,
         items:1
     });
     pop.appendTo('body');
-    pop.find('.io-full-slider-close').on('click',function(e){
+    pop.find('.stdin-full-slider-close').on('click',function(e){
         e.preventDefault();
         pop.removeClass('open');
         setTimeout(function(){
@@ -155,21 +155,6 @@ $.fn.fill = function(data){
 		f.find('select,[type=file]').trigger('update');
 	});
 };
-$.fn.stdinActionListeners = function(){
-	return this.each(function(i,a){
-		var _self = $(a);
-		var _select = _self.find('select');
-		$.each(_self.find('div a'),(i,b)=>{
-			STDin.option(i,$(b).text()).appendTo(_select);
-		});
-		_select.on('change',function(e){
-			var selectedIndex = parseInt($(this).val(),10);
-			$(_self.find('div a').get(selectedIndex)).trigger('click');
-			$(this).val('-');
-		});
-		return _self;
-	});
-};
 $.fn.stdinUpdateListeners = function(){
 	return this.each(function(i,f){
 		return $(f).on('update',function(){
@@ -193,7 +178,7 @@ $.fn.stdinUpdateListeners = function(){
 $.fn.close = function(){
 	return this.trigger('stdin-modal-close');
 };
-const BridePromisePlaceholder = function(){
+const BridgePromisePlaceholder = function(){
 	this.thens = [];
 	this.catchs = [];
 	this.finallys = [];
@@ -202,7 +187,7 @@ const BridePromisePlaceholder = function(){
 	this.finally = function(fn){ this.finallys.push(fn); return this; };
 };
 $.fn.bridge = function(path,options){
-	var bridge = new BridePromisePlaceholder();
+	var bridge = new BridgePromisePlaceholder();
 	$(this).on('submit',function(e){
 		e.preventDefault();
 		var optionsOverride = $.extend(STDin.defaultBridgeOptions,options);
@@ -483,5 +468,4 @@ window.STDin = {
 };
 $(()=>{
 	$('.stdin-input select,.stdin-input [type=file]').stdinUpdateListeners();
-	$('.stdin-actions').stdinActionListeners();
 });

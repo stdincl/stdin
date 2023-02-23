@@ -11,10 +11,16 @@
 	
 	--stdin-ui-color-constructive:#29d66d;
 	--stdin-ui-color-constructive-active:#05c551;
+	--stdin-ui-color-constructive-light:#05c55106;
 	--stdin-ui-color-destructive:#ed4c67;
 	--stdin-ui-color-destructive-active:#f31e42;
+	--stdin-ui-color-destructive-light:#f31e4206;
 	--stdin-ui-color-warning:#ffce36;
 	--stdin-ui-color-warning-active:#ffad01;
+	--stdin-ui-color-warning-light:#ffad0106;
+	--stdin-ui-color-error:#ff0000;
+	--stdin-ui-color-error-active:#ff0000;
+	--stdin-ui-color-error-light:#ff000006;
 
 	--stdin-text-strong:#1a1f36;
 	--stdin-text-default:#3c4257;
@@ -50,8 +56,8 @@
 	--stdin-ui-input-disabled-color:#c9cbd0;
 	--stdin-ui-input-disabled-color-contrast:#ffffff;
 
-	--stdin-shadow-normal:0 1px 4px rgba(0,0,0,0.06);
-	--stdin-shadow-hover:0 2px 6px rgba(0,0,0,0.15);
+	--stdin-shadow-normal:0 1px 8px rgba(0,0,0,0.1);
+	--stdin-shadow-hover:0 2px 10px rgba(0,0,0,0.18);
 	--stdin-shadow-strong:0 15px 35px 0 #645bff11,0 5px 15px 0 rgba(0,0,0,0.14);
 
 	--stdin-transition-normal:0.3s ease;

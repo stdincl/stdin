@@ -19,6 +19,10 @@
 	/* Label */
 		.stdin-input > label:first-child {
 			display:block;
+			width:100%;
+		    overflow:hidden;
+		    white-space:nowrap;
+		    text-overflow:ellipsis;
 			font-size:var(--stdin-ui-label-font-size);
 			letter-spacing:var(--stdin-ui-label-font-separation);
 			margin-bottom:var(--stdin-ui-label-spacing);
@@ -225,17 +229,85 @@
 				box-shadow:var(--stdin-shadow-hover);
 			}
 
+			.stdin-input.stdin-error > button,
+			.stdin-input.stdin-error > [type=button],
+			.stdin-input.stdin-error > [type=reset],
+			.stdin-input.stdin-error > [type=submit],
+			.stdin-input.stdin-error > input,
+			.stdin-input.stdin-error > textarea,
+			.stdin-input.stdin-error > [type=file],
+			.stdin-input.stdin-error > [type=file] + label,
+			.stdin-input.stdin-error > select,
+			.stdin-input.stdin-error > select + label,
+			.stdin-input.stdin-error > [type=checkbox] + label,
+			.stdin-input.stdin-error > [type=radio] + label,
+			.stdin-input.stdin-error > .stdin-actions > a {
+				color:var(--stdin-ui-color-error) !important;
+				border-color:var(--stdin-ui-color-error) !important;
+				background:var(--stdin-ui-color-error-light) !important;
+				animation:stdin-shake 0.2s !important;
+			}
+				.stdin-input.stdin-error > button:hover,
+				.stdin-input.stdin-error > [type=button]:hover,
+				.stdin-input.stdin-error > [type=reset]:hover,
+				.stdin-input.stdin-error > [type=submit]:hover,
+				.stdin-input.stdin-error > input:hover,
+				.stdin-input.stdin-error > textarea:hover,
+				.stdin-input.stdin-error > [type=file]:hover,
+				.stdin-input.stdin-error > [type=file] + label:hover,
+				.stdin-input.stdin-error > select:hover,
+				.stdin-input.stdin-error > select + label:hover,
+				.stdin-input.stdin-error > [type=checkbox] + label:hover,
+				.stdin-input.stdin-error > [type=radio] + label:hover,
+				.stdin-input.stdin-error > .stdin-actions > a:hover {
+					color:var(--stdin-ui-color-error-active) !important;
+					border-color:var(--stdin-ui-color-error-active) !important;
+				}
+				.stdin-input.stdin-primary.stdin-error > button,
+				.stdin-input.stdin-primary.stdin-error > [type=button],
+				.stdin-input.stdin-primary.stdin-error > [type=reset],
+				.stdin-input.stdin-primary.stdin-error > [type=submit] {
+					background:var(--stdin-ui-color-error) !important;
+					border-color:var(--stdin-ui-color-error) !important;
+					color:var(--stdin-ui-color-primary-contrast) !important;
+				}
+				.stdin-input.stdin-primary.stdin-error > button:hover,
+				.stdin-input.stdin-primary.stdin-error > [type=button]:hover,
+				.stdin-input.stdin-primary.stdin-error > [type=reset]:hover,
+				.stdin-input.stdin-primary.stdin-error > [type=submit]:hover {
+					background:var(--stdin-ui-color-error-active) !important;
+					color:var(--stdin-ui-color-primary-contrast) !important;
+				}
+
 			.stdin-input.stdin-destructive > button,
 			.stdin-input.stdin-destructive > [type=button],
 			.stdin-input.stdin-destructive > [type=reset],
-			.stdin-input.stdin-destructive > [type=submit] {
+			.stdin-input.stdin-destructive > [type=submit],
+			.stdin-input.stdin-destructive > input,
+			.stdin-input.stdin-destructive > textarea,
+			.stdin-input.stdin-destructive > [type=file],
+			.stdin-input.stdin-destructive > [type=file] + label,
+			.stdin-input.stdin-destructive > select,
+			.stdin-input.stdin-destructive > select + label,
+			.stdin-input.stdin-destructive > [type=checkbox] + label,
+			.stdin-input.stdin-destructive > [type=radio] + label,
+			.stdin-input.stdin-destructive > .stdin-actions > a {
 				color:var(--stdin-ui-color-destructive);
 				border-color:var(--stdin-ui-color-destructive);
 			}
 				.stdin-input.stdin-destructive > button:hover,
 				.stdin-input.stdin-destructive > [type=button]:hover,
 				.stdin-input.stdin-destructive > [type=reset]:hover,
-				.stdin-input.stdin-destructive > [type=submit]:hover {
+				.stdin-input.stdin-destructive > [type=submit]:hover,
+				.stdin-input.stdin-destructive > input:hover,
+				.stdin-input.stdin-destructive > textarea:hover,
+				.stdin-input.stdin-destructive > [type=file]:hover,
+				.stdin-input.stdin-destructive > [type=file] + label:hover,
+				.stdin-input.stdin-destructive > select:hover,
+				.stdin-input.stdin-destructive > select + label:hover,
+				.stdin-input.stdin-destructive > [type=checkbox] + label:hover,
+				.stdin-input.stdin-destructive > [type=radio] + label:hover,
+				.stdin-input.stdin-destructive > .stdin-actions > a:hover {
 					color:var(--stdin-ui-color-destructive-active);
 					border-color:var(--stdin-ui-color-destructive-active);
 				}
@@ -258,14 +330,32 @@
 			.stdin-input.stdin-constructive > button,
 			.stdin-input.stdin-constructive > [type=button],
 			.stdin-input.stdin-constructive > [type=reset],
-			.stdin-input.stdin-constructive > [type=submit] {
+			.stdin-input.stdin-constructive > [type=submit],
+			.stdin-input.stdin-constructive > input,
+			.stdin-input.stdin-constructive > textarea,
+			.stdin-input.stdin-constructive > [type=file],
+			.stdin-input.stdin-constructive > [type=file] + label,
+			.stdin-input.stdin-constructive > select,
+			.stdin-input.stdin-constructive > select + label,
+			.stdin-input.stdin-constructive > [type=checkbox] + label,
+			.stdin-input.stdin-constructive > [type=radio] + label,
+			.stdin-input.stdin-constructive > .stdin-actions > a {
 				color:var(--stdin-ui-color-constructive);
 				border-color:var(--stdin-ui-color-constructive);
 			}
 				.stdin-input.stdin-constructive > button:hover,
 				.stdin-input.stdin-constructive > [type=button]:hover,
 				.stdin-input.stdin-constructive > [type=reset]:hover,
-				.stdin-input.stdin-constructive > [type=submit]:hover {
+				.stdin-input.stdin-constructive > [type=submit]:hover,
+				.stdin-input.stdin-constructive > input:hover,
+				.stdin-input.stdin-constructive > textarea:hover,
+				.stdin-input.stdin-constructive > [type=file]:hover,
+				.stdin-input.stdin-constructive > [type=file] + label:hover,
+				.stdin-input.stdin-constructive > select:hover,
+				.stdin-input.stdin-constructive > select + label:hover,
+				.stdin-input.stdin-constructive > [type=checkbox] + label:hover,
+				.stdin-input.stdin-constructive > [type=radio] + label:hover,
+				.stdin-input.stdin-constructive > .stdin-actions > a:hover {
 					color:var(--stdin-ui-color-constructive-active);
 					border-color:var(--stdin-ui-color-constructive-active);
 				}
@@ -288,14 +378,32 @@
 			.stdin-input.stdin-warning > button,
 			.stdin-input.stdin-warning > [type=button],
 			.stdin-input.stdin-warning > [type=reset],
-			.stdin-input.stdin-warning > [type=submit] {
+			.stdin-input.stdin-warning > [type=submit],
+			.stdin-input.stdin-warning > input,
+			.stdin-input.stdin-warning > textarea,
+			.stdin-input.stdin-warning > [type=file],
+			.stdin-input.stdin-warning > [type=file] + label,
+			.stdin-input.stdin-warning > select,
+			.stdin-input.stdin-warning > select + label,
+			.stdin-input.stdin-warning > [type=checkbox] + label,
+			.stdin-input.stdin-warning > [type=radio] + label,
+			.stdin-input.stdin-warning > .stdin-actions > a {
 				color:var(--stdin-ui-color-warning);
 				border-color:var(--stdin-ui-color-warning);
 			}
 				.stdin-input.stdin-warning > button:hover,
 				.stdin-input.stdin-warning > [type=button]:hover,
 				.stdin-input.stdin-warning > [type=reset]:hover,
-				.stdin-input.stdin-warning > [type=submit]:hover {
+				.stdin-input.stdin-warning > [type=submit]:hover,
+				.stdin-input.stdin-warning > input:hover,
+				.stdin-input.stdin-warning > textarea:hover,
+				.stdin-input.stdin-warning > [type=file]:hover,
+				.stdin-input.stdin-warning > [type=file] + label:hover,
+				.stdin-input.stdin-warning > select:hover,
+				.stdin-input.stdin-warning > select + label:hover,
+				.stdin-input.stdin-warning > [type=checkbox] + label:hover,
+				.stdin-input.stdin-warning > [type=radio] + label:hover,
+				.stdin-input.stdin-warning > .stdin-actions > a:hover {
 					color:var(--stdin-ui-color-warning-active);
 					border-color:var(--stdin-ui-color-warning-active);
 				}
@@ -560,6 +668,7 @@
 /* Modal */
 	.stdin-modal {
 		background:var(--stdin-modal-background);
+		backdrop-filter:blur(10px);
 		position:fixed;
 		left:0;
 		right:0;
@@ -583,15 +692,118 @@
 		    bottom:0;
 		    justify-content:center;
 		    align-items:center;
-		    display:flex;
-		    flex-direction:column;
+		    display:block;
 		    overflow:auto;
 		    padding:80px;
 		    box-sizing:border-box;
 		}
 		.stdin-modal .stdin-modal-content > * {
 			max-width:600px;
+			margin:0 auto;
 		}
+
+/* Fullscreen image viewer */
+	.stdin-full {
+		background:var(--stdin-modal-background);
+		backdrop-filter:blur(10px);
+		position:fixed;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		display:block;
+		opacity:0;
+		pointer-events:all;
+		z-index:1000000000000;
+		transition:0.3s ease;
+	}
+	.stdin-full.open {
+		opacity:1;
+		pointer-events:all;
+	}
+		.stdin-full .stdin-full-slider-close {
+			display:block;
+			position:fixed;
+			right:20px;
+			top:20px;
+			font-size:30px;
+			color:#ffffff;
+			cursor:pointer;
+			z-index:1000;
+			text-shadow:var(--stdin-shadow-strong);
+		}
+		.stdin-full .stdin-full-slider {
+			display:block;
+			height:100%;
+			width:100%;
+		}
+			.stdin-full .stdin-full-slider .owl-stage-outer {
+				display:block;
+				height:100%;
+				width:100%;
+			}
+				.stdin-full .stdin-full-slider .owl-stage {
+					display:block;
+					height:100%; 
+				}
+					.stdin-full .stdin-full-slider .owl-stage .owl-item {
+						height:100%; 
+					}
+						.stdin-full .stdin-full-slider .owl-stage .owl-item .stdin-full-slider-image {
+							height:100%; 
+	    					background:no-repeat center center;
+							background-size:contain;
+						}
+			.stdin-full .stdin-full-slider .owl-nav {
+				display:block;
+			}
+				.stdin-full .stdin-full-slider .owl-nav .owl-prev,
+				.stdin-full .stdin-full-slider .owl-nav .owl-next {
+					display:block;
+					position:fixed;
+					top:50%;
+					width:20px;
+					height:20px;
+					border-left:2px solid #fff;
+					border-top:2px solid #fff;
+				    font-size:30px;
+				    margin-top:-15px;
+				    text-shadow:0 3px 10px rgb(0 0 0);
+				}
+				.stdin-full .stdin-full-slider .owl-nav .owl-prev {
+					left:10px;
+					transform:rotate(-45deg);
+				}
+				.stdin-full .stdin-full-slider .owl-nav .owl-next {
+					right:10px;
+					transform:rotate(135deg);
+				}
+					.stdin-full .stdin-full-slider .owl-nav .owl-prev *,
+					.stdin-full .stdin-full-slider .owl-nav .owl-next * {
+						display:none;
+					}
+
+			.stdin-full .stdin-full-slider .owl-dots {
+				display:block;
+				position:fixed;
+				left:0;
+				right:0;
+				bottom:20px;
+				text-align:center;
+			}
+				.stdin-full .stdin-full-slider .owl-dots .owl-dot {
+					display:inline-block;
+					width:12px;
+					height:12px;
+					margin:2px 4px;
+					border-radius:50%;
+					background:#fff;
+					opacity:0.4;
+				}
+				.stdin-full .stdin-full-slider .owl-dots .owl-dot.active {
+					opacity:1;
+				}
+
 
 /* Card */
 	.stdin-card {
@@ -670,4 +882,25 @@
 	.stdin-data {}
 
 
-		
+
+
+/* Mobile version */
+@media only screen and (max-width:480px), only screen and (max-device-width:480px) {
+	.stdin-input > .stdin-actions {
+	    flex-direction:column;
+	}
+		.stdin-input > .stdin-actions > a {
+			flex:unset;
+		    border-left:var(--stdin-ui-input-border);
+		    border-top:none;
+		}
+		.stdin-input > .stdin-actions > a:first-child {
+			border-top:var(--stdin-ui-input-border);
+		    border-top-right-radius:inherit !important;
+		    border-bottom-left-radius:0 !important;
+		}
+		.stdin-input > .stdin-actions > a:last-child {
+		    border-top-right-radius:0 !important;
+		    border-bottom-left-radius:inherit !important;
+		}
+}

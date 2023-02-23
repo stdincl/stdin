@@ -1,3 +1,7 @@
+/* Modifiers */
+	
+	.stdin-stretch {}
+
 /* layout  */
 	.stdin-row {
 		display:flex;
@@ -7,6 +11,9 @@
 		.stdin-row > .stdin-cell {
 			flex:1;
 			margin:calc(var(--stdin-layout-spacing)*1.2) var(--stdin-layout-spacing);
+		}
+		.stdin-row > .stdin-stretch {
+			flex:unset;
 		}
 		.stdin-row > .stdin-cell:first-child {
 			margin-left:0

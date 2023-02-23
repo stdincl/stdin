@@ -3,21 +3,27 @@
 	--font-family:'SF Pro Display',BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 	--stdin-ui-color-base:#ffffff;
-	--stdin-ui-color-white:#ffffff;
+	--stdin-ui-color-light:#ebeffc;
 
 	--stdin-ui-color-primary:#645bff;
 	--stdin-ui-color-primary-active:#544cf9;
 	--stdin-ui-color-primary-contrast:#ffffff;
 	
-	--stdin-ui-color-constructive:#A3CB38;
-	--stdin-ui-color-destructive:#ED4C67;
-	--stdin-ui-color-warning:#F79F1F;
+	--stdin-ui-color-constructive:#29d66d;
+	--stdin-ui-color-constructive-active:#05c551;
+	--stdin-ui-color-destructive:#ed4c67;
+	--stdin-ui-color-destructive-active:#f31e42;
+	--stdin-ui-color-warning:#ffce36;
+	--stdin-ui-color-warning-active:#ffad01;
 
 	--stdin-text-strong:#1a1f36;
 	--stdin-text-default:#3c4257;
 	--stdin-text-secundary:#697386;
 
-	--stdin-ui-label-spacing:10px;
+	--stdin-layout-spacing:10px;
+	--stdin-ui-tooltip-spacing:calc(var(--stdin-layout-spacing)*2);
+
+	--stdin-ui-label-spacing:var(--stdin-layout-spacing);
 	--stdin-ui-label-font-size:14px;
 	--stdin-ui-label-font-separation:0.5px;
 	--stdin-ui-label-font-weight:500;
@@ -27,29 +33,28 @@
 
 	--stdin-ui-input-round:5px;
 
+	/* Changing  --stdin-ui-input-height will increase other css inputs attributes */
+	--stdin-ui-input-height:40px;
 	--stdin-ui-input-background:#ffffff;
 	--stdin-ui-input-background-hover:#fcfcfc;
 	--stdin-ui-input-font-separation:0.5px;
 	--stdin-ui-input-border:1px solid #e0e1e4;
-	--stdin-ui-input-font-size:16px;
-	--stdin-ui-input-padding:20px;
-	--stdin-ui-input-height:calc(var(--stdin-ui-input-padding)*2);
-	--stdin-ui-input-check-font-size:14px;
-	--stdin-ui-input-check-size:18px;
+	--stdin-ui-input-font-size:calc(var(--stdin-ui-input-height)*0.36);
+	--stdin-ui-input-padding:calc(var(--stdin-ui-input-height)*0.4);
+	--stdin-ui-input-check-size:calc(var(--stdin-ui-input-height)*0.45);
+
+	--stdin-ui-textarea-line-height:1.4;
 
 	--stdin-ui-outline:0 0 0 2px #3f51b540;
 
 	--stdin-ui-input-disabled-color:#c9cbd0;
 	--stdin-ui-input-disabled-color-contrast:#ffffff;
 
-	--stdin-ui-tooltip-spacing:20px;
-
 	--stdin-shadow-normal:0 1px 4px rgba(0,0,0,0.06);
 	--stdin-shadow-hover:0 2px 6px rgba(0,0,0,0.15);
 	--stdin-shadow-strong:0 15px 35px 0 #645bff11,0 5px 15px 0 rgba(0,0,0,0.14);
 
 	--stdin-transition-normal:0.3s ease;
-	--stdin-layout-spacing:10px;
 
 	--stdin-ui-component-round:4px;
 	--stdin-ui-component-spacing:50px;

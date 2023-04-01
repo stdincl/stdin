@@ -142,7 +142,6 @@ Date.prototype.addDays = function(days) {
 Date.prototype.normalize = function(){ 
 	return this.toString().normalize();
 };
-
 $.fn.hasAttr = function(name) {  
 	return this.attr(name) !== undefined && this.attr(name) !== false;
 };
@@ -150,7 +149,24 @@ $.fn.fill = function(data){
 	return this.each(function(i,f){
 		f = $(f);
 		$.each(data,function(name,value){
-			f.find('[name='+name+']').val((value).toString().normalize());
+			var i = f.find('[name='+name+']');
+			if(
+				i.attr('type')=='checkbox'
+				||
+				i.attr('type')=='radio'
+			){
+				i.prop('checked',(
+					value=='1'
+					||
+					value==1
+					||
+					value===true
+					||
+					value=='on'
+				));
+			}else{
+				i.val((value).toString().normalize());
+			}
 		});
 		f.find('select,[type=file]').trigger('update');
 	});

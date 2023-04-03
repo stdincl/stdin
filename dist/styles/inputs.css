@@ -556,15 +556,20 @@
 			}
 			.stdin-input > select + label,
 			.stdin-input > [type=file] + label {
-				user-select:none;
-				cursor:pointer;
-				line-height:0;
-				position:relative;
-				box-shadow:var(--stdin-shadow-normal); 
-				height:var(--stdin-ui-input-height);
-				display:flex;
-				align-items:center;
-				flex-direction:row;
+				user-select: none;
+			    cursor: pointer;
+			    line-height: 0;
+			    position: relative;
+			    box-shadow: var(--stdin-shadow-normal);
+			    height: var(--stdin-ui-input-height);
+			    display: flex;
+			    align-items: center;
+			    flex-direction: row;
+			    white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    display: block;
+			    padding: calc(var(--stdin-ui-input-height)/2) var(--stdin-ui-input-padding);
 			}
 			.stdin-input > select:hover + label,
 			.stdin-input > [type=file]:hover + label {
@@ -581,10 +586,7 @@
 			    transform:rotate(45deg);
 			    margin-left:10px;
 			    line-height:0;
-			    position:absolute;
-			    right:var(--stdin-ui-input-padding);
-			    top:50%;
-			    margin-top:calc(var(--stdin-ui-input-icon-size)*0.5*-0.8);
+		        margin-top: -3px;
 			}
 
 	/* icon and action */

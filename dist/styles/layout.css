@@ -13,6 +13,7 @@
 		.stdin-row > .stdin-cell {
 			flex:1;
 			margin:calc(var(--stdin-layout-spacing)*1.2) var(--stdin-layout-spacing);
+			min-width:0;
 		}
 		.stdin-row > .stdin-cell.stdin-cell-1  { flex:unset; width:  8.3333% }
 		.stdin-row > .stdin-cell.stdin-cell-2  { flex:unset; width: 16.6666% }

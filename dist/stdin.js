@@ -206,7 +206,7 @@ $.fn.bridge = function(path,options){
 	var bridge = new BridgePromisePlaceholder();
 	$(this).on('submit',function(e){
 		e.preventDefault();
-		var optionsOverride = $.extend(STDin.defaultBridgeOptions,options);
+		var optionsOverride = $.extend({},STDin.defaultBridgeOptions,options);
 		optionsOverride.data = new FormData(this);
 		var connection = STDin.bridge(path,optionsOverride);
 		bridge.thens.forEach((fn)=>connection.then(fn));
@@ -225,7 +225,7 @@ $.fn.modal = function(options){
 			hide: on modal is hidded (not removed from DOM),
 			show: on modal is showed
 	*/
-	var settings = $.extend({
+	var settings = $.extend({},{
 		closer:'.stdin-modal-close-button',
 	},options);
 	return this.each((i,element)=>{
@@ -263,7 +263,7 @@ window.STDin = {
 	server:'',
 	credentials:{},
 	alert:function(options){
-		var settings = $.extend({
+		var settings = $.extend({},{
 			title:'Mensaje',
 			message:''
 		},typeof options==='string'?{
@@ -312,7 +312,7 @@ window.STDin = {
 				cancel: on cancel message
 				accept: on accept message
 		*/
-		var settings = $.extend({
+		var settings = $.extend({},{
 			title:'Confirmar',
 			message:'',
 			accept:'Aceptar',
@@ -417,7 +417,7 @@ window.STDin = {
 			Returns Promise
 		*/
 		this.path = path;
-		this.settings = $.extend(STDin.defaultBridgeOptions,options);
+		this.settings = $.extend({},STDin.defaultBridgeOptions,options);
 		if(!(this.settings.data instanceof FormData)){
 			this.settings.data = $.extend({},this.settings.data);
 			var formDataCollector = new FormData();
@@ -428,7 +428,7 @@ window.STDin = {
 		}
 		this.settings.hasFiles = Array.from(this.settings.data.values()).filter((value)=>value.name?true:false).length>0;
 		if(this.settings.loader){
-			this.settings.loaderElement = STDin.loader(this.settings.hasFiles);
+			var loaderElement = STDin.loader(this.settings.hasFiles);
 		}
 		return new Promise((resolve,reject)=>{
 			const ajaxSetup = {
@@ -456,7 +456,7 @@ window.STDin = {
 	                var xhr = new window.XMLHttpRequest();
 					if(this.settings.hasFiles && this.settings.loader){
 		                xhr.upload.addEventListener('progress',(evt)=>{
-			                this.settings.loaderElement.trigger('progress',[((evt.loaded/evt.total)*100)]);
+			                loaderElement.trigger('progress',[((evt.loaded/evt.total)*100)]);
 		                },false);
 					}
 	                return xhr;
@@ -476,7 +476,7 @@ window.STDin = {
 				reject(response.responseJSON);
 			}).always(()=>{
 				if(this.settings.loader){
-					this.settings.loaderElement.remove();
+					loaderElement.remove();
 				}
 			});
 		}); 

@@ -465,6 +465,9 @@
 				margin-left:calc(var(--stdin-ui-input-padding)*-1);
 				margin-right:calc(var(--stdin-ui-input-padding)*-1);
 				width:auto;
+				overflow:hidden;
+			    text-overflow:ellipsis;
+			    white-space:nowrap;
 			}
 			.stdin-input.stdin-narrow > [type=checkbox] + label,
 			.stdin-input.stdin-narrow > [type=radio] + label {

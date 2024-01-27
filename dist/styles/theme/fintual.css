@@ -1,6 +1,7 @@
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
 :root {
-	--font-family:'SF Pro Display',BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	--font-family:'Poppins',BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 	--stdin-ui-color-base:#ffffff;
 	--stdin-ui-color-light:#ebeffc;
@@ -37,15 +38,15 @@
 	--stdin-ui-input-icon-size:14px;
 	--stdin-ui-input-icon-color:#ced7df;
 
-	--stdin-ui-input-round:5px;
+	--stdin-ui-input-round:16px;
 
 	/* Changing  --stdin-ui-input-height will increase other css inputs attributes */
-	--stdin-ui-input-height:40px;
+	--stdin-ui-input-height:50px;
 	--stdin-ui-input-background:#ffffff;
 	--stdin-ui-input-background-hover:#fcfcfc;
-	--stdin-ui-input-font-separation:0.5px;
+	--stdin-ui-input-font-separation:0px;
 	--stdin-ui-input-border:1px solid #e0e1e4;
-	--stdin-ui-input-font-size:calc(var(--stdin-ui-input-height)*0.36);
+	--stdin-ui-input-font-size:calc(var(--stdin-ui-input-height)*0.3);
 	--stdin-ui-input-padding:calc(var(--stdin-ui-input-height)*0.4);
 	--stdin-ui-input-check-size:calc(var(--stdin-ui-input-height)*0.45);
 
@@ -54,11 +55,11 @@
 	--stdin-ui-outline:none;
 
 	--stdin-ui-input-disabled-color:#c9cbd0;
-	--stdin-ui-input-disabled-color-contrast:#ffffff;
+	--stdin-ui-input-disabled-color-contrast:#757575;
 
-	--stdin-shadow-normal:0 1px 5px rgba(0,0,0,0.1);
-	--stdin-shadow-hover:0 2px 10px rgba(0,0,0,0.18);
-	--stdin-shadow-strong:0 15px 35px 0 #645bff11,0 5px 15px 0 rgba(0,0,0,0.14);
+	--stdin-shadow-normal:none;
+	--stdin-shadow-hover:none;
+	--stdin-shadow-strong:0 1px 5px rgba(0,0,0,0.1);
 
 	--stdin-transition-normal:0.3s ease;
 

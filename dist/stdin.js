@@ -21,11 +21,11 @@ String.prototype.toDate = function(){
 		d[2] = isNaN(d[2])?0:d[2]; 
 
 	var isInvalidDate = (
-		d[0]==0
+		d[0]<=0
 		||
-		d[1]==0
+		d[1]<=-1
 		||
-		d[2]==0
+		d[2]<=0
 	);
 	return isInvalidDate?new Date():new Date(d[0],d[1],d[2]);
 };
@@ -484,4 +484,33 @@ window.STDin = {
 };
 $(()=>{
 	$('.stdin-input select,.stdin-input [type=file]').stdinUpdateListeners();
+	/*
+		Pollyfills
+		stdin-floating-label
+	*/
+		$([
+			'[type=text]',
+			'[type=password]',
+			'textarea',
+		].map((element)=>{
+			return '.stdin-input.stdin-floating-label '+element;
+		}).join(',')).on('stdin-focus',function(){
+			$(this).parents('.stdin-input').addClass('stdin-state-focused');
+			$(this).attr('placeholder-backup',$(this).attr('placeholder'));
+			$(this).attr('placeholder','');
+		}).on('focus',function(){
+			$(this).trigger('stdin-focus');
+		}).on('stdin-unfocus',function(){
+			$(this).parents('.stdin-input').removeClass('stdin-state-focused');
+			$(this).attr('placeholder',$(this).attr('placeholder-backup'));
+			$(this).removeAttr('placeholder-backup');
+		}).on('blur',function(){
+			$(this).trigger('stdin-unfocus');
+		});
+		$([
+			'[type=file]',
+			'select',
+		].map((element)=>{
+			return '.stdin-input.stdin-floating-label '+element;
+		}).join(',')).parents('.stdin-input').addClass('stdin-state-focused');
 });

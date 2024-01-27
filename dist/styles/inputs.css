@@ -22,13 +22,48 @@
 		.stdin-input > label:first-child {
 			display:block;
 			width:100%;
-		    overflow:hidden;
 		    white-space:nowrap;
 		    text-overflow:ellipsis;
 			font-size:var(--stdin-ui-label-font-size);
 			letter-spacing:var(--stdin-ui-label-font-separation);
 			margin-bottom:var(--stdin-ui-label-spacing);
 			font-weight:var(--stdin-ui-label-font-weight);
+		}
+		.stdin-input.stdin-floating-label > label:first-child {
+			position:absolute;
+			left:0;
+			top:calc(var(--stdin-ui-input-height)*0.5);
+			width:auto;
+			padding:0 calc(var(--stdin-ui-label-font-size)*0.5);
+			margin-top:calc(var(--stdin-ui-label-font-size)*-0.6);
+			border-radius:2px;
+			left:calc(var(--stdin-ui-input-height)*0.5);
+			pointer-events:none;
+			transition:0.2s;
+			opacity:0;
+			background:var(--stdin-ui-input-background);
+			z-index:100;
+			font-weight:normal;
+			color:var(--stdin-ui-color-primary);
+		}
+			.stdin-input.stdin-floating-label.stdin-error > label:first-child {
+				color:var(--stdin-ui-color-error);
+			}
+			.stdin-input.stdin-floating-label.stdin-warning > label:first-child {
+				color:var(--stdin-ui-color-warning);
+			}
+			.stdin-input.stdin-floating-label.stdin-destructive > label:first-child {
+				color:var(--stdin-ui-color-destructive);
+			}
+			.stdin-input.stdin-floating-label.stdin-constructive > label:first-child {
+				color:var(--stdin-ui-color-constructive);
+			}
+		.stdin-input.stdin-floating-label.stdin-state-focused > label:first-child {
+			opacity:1;
+			top:0;
+		}
+		.stdin-input.stdin-floating-label.stdin-state-focused > label:first-child > * {
+			pointer-events:all;
 		}
 		.stdin-input > label:empty:after {
 			display:inline-block;
@@ -67,6 +102,8 @@
 					padding:var(--stdin-ui-tooltip-spacing);
 					min-width:250px;
 					line-height:1.3;
+					max-width: 100%;
+    				white-space: normal;
 				}
 				.stdin-input > label:first-child i span.stdin-top {
 					top:auto;
@@ -159,6 +196,7 @@
 		.stdin-input > [type=radio]:active + label:before,
 		.stdin-input > .stdin-actions > a:before {
 			box-shadow:var(--stdin-ui-outline);
+			border-color:var(--stdin-ui-color-primary);
 		}
 
 		.stdin-input > .stdin-actions {
@@ -481,13 +519,11 @@
 
 			.stdin-input > * + label p {
 				display:block;
-				line-height:1.3;
+				line-height:1.5;
 				font-weight:normal;
 				margin-top:calc(var(--stdin-ui-input-check-size)*-0.5);
 				color:var(--stdin-text-secundary);
-			}
-			.stdin-input.stdin-narrow > * + label p {
-				margin-top:calc((var(--stdin-ui-input-check-size)*-0.5)*0.8);
+				white-space:normal;
 			}
 			.stdin-input > * + label a {
 				color:var(--stdin-ui-color-primary);
@@ -571,7 +607,7 @@
 			    white-space:nowrap;
 			    overflow:hidden;
 			    text-overflow:ellipsis;
-			    display:block;
+			    display:flex;
 			    padding:calc(var(--stdin-ui-input-height)/2) calc(var(--stdin-ui-input-padding)*2) calc(var(--stdin-ui-input-height)/2) var(--stdin-ui-input-padding);
 			}
 			.stdin-input > select:hover + label,

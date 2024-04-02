@@ -387,8 +387,12 @@ window.STDin = {
 	},
     loader:function(showProgressBar){
     	showProgressBar = showProgressBar?true:false;
+    	var loaderIndex = '#stdin-loader-id-'+(new Date().getTime())+'-'+Math.round(Math.random()*1000);
+    	while($(loaderIndex).length>0){
+    		loaderIndex = '#stdin-loader-id-'+(new Date().getTime())+'-'+Math.round(Math.random()*1000);
+    	}
       	return [
-      		'<div class="stdin-loader">',
+      		'<div class="stdin-loader" id="'+loaderIndex+'">',
 				'<b class="fa fa-spinner fa-3x fa-pulse"></b>',
 				(showProgressBar?'<div class="stdin-loading-bar"><div class="stdin-loading-progress"></div></div>':''),
 			'</div>'
@@ -416,45 +420,40 @@ window.STDin = {
 				data:{}
 			Returns Promise
 		*/
-		this.path = path;
-		this.settings = $.extend({},STDin.defaultBridgeOptions,options);
-		if(!(this.settings.data instanceof FormData)){
-			this.settings.data = $.extend({},this.settings.data);
+		var path = path;
+		var settings = $.extend({},STDin.defaultBridgeOptions,options);
+		if(!(settings.data instanceof FormData)){
+			settings.data = $.extend({},settings.data);
 			var formDataCollector = new FormData();
-			$.each(this.settings.data,function(k,d){
+			$.each(settings.data,function(k,d){
 				formDataCollector.append(k,d);
 			});
-			this.settings.data = formDataCollector;
+			settings.data = formDataCollector;
 		}
-		this.settings.hasFiles = Array.from(this.settings.data.values()).filter((value)=>value.name?true:false).length>0;
-		if(this.settings.loader){
-			var loaderElement = STDin.loader(this.settings.hasFiles);
+		settings.hasFiles = Array.from(settings.data.values()).filter((value)=>value.name?true:false).length>0;
+		if(settings.loader){
+			var loaderElement = STDin.loader(settings.hasFiles);
 		}
 		return new Promise((resolve,reject)=>{
 			const ajaxSetup = {
-				type:this.settings.method,
-				url:STDin.server+'/bridge/'+this.path+'/',
-				data:this.settings.data,
+				type:settings.method,
+				url:STDin.server+'/bridge/'+path+'/',
+				data:settings.data,
 				cache: false,
 			    contentType: false,
 			    processData: false,
 				beforeSend:(request)=>{
-				    request.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
-					request.setRequestHeader('cache-control', 'max-age=0');
-					request.setRequestHeader('expires', '0');
-					request.setRequestHeader('expires', 'Tue, 01 Jan 1981 1:00:00 GMT');
-					request.setRequestHeader('pragma', 'no-cache');
 					Object.keys(STDin.credentials).forEach((credentialKey)=>{
 						request.setRequestHeader('Auth',credentialKey+' ' + STDin.credentials[credentialKey]);
 					});
-					Object.keys(this.settings.headers).forEach((headerKey)=>{
-						request.setRequestHeader(headerKey,this.settings.headers[headerKey]);
+					Object.keys(settings.headers).forEach((headerKey)=>{
+						request.setRequestHeader(headerKey,settings.headers[headerKey]);
 					});
 				    request.withCredentials = 'true';
 				},
 				xhr:()=>{
 	                var xhr = new window.XMLHttpRequest();
-					if(this.settings.hasFiles && this.settings.loader){
+					if(settings.hasFiles && settings.loader){
 		                xhr.upload.addEventListener('progress',(evt)=>{
 			                loaderElement.trigger('progress',[((evt.loaded/evt.total)*100)]);
 		                },false);
@@ -475,7 +474,7 @@ window.STDin = {
 				}
 				reject(response.responseJSON);
 			}).always(()=>{
-				if(this.settings.loader){
+				if(settings.loader){
 					loaderElement.remove();
 				}
 			});
@@ -491,6 +490,10 @@ $(()=>{
 		$([
 			'[type=text]',
 			'[type=password]',
+			'[type=number]',
+			'[type=decimal]',
+			'[type=date]',
+			'[type=email]',
 			'textarea',
 		].map((element)=>{
 			return '.stdin-input.stdin-floating-label '+element;
@@ -501,9 +504,11 @@ $(()=>{
 		}).on('focus',function(){
 			$(this).trigger('stdin-focus');
 		}).on('stdin-unfocus',function(){
-			$(this).parents('.stdin-input').removeClass('stdin-state-focused');
-			$(this).attr('placeholder',$(this).attr('placeholder-backup'));
-			$(this).removeAttr('placeholder-backup');
+			if($(this).val()==''){
+				$(this).parents('.stdin-input').removeClass('stdin-state-focused');
+				$(this).attr('placeholder',$(this).attr('placeholder-backup'));
+				$(this).removeAttr('placeholder-backup');
+			}
 		}).on('blur',function(){
 			$(this).trigger('stdin-unfocus');
 		});

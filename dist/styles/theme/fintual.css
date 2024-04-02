@@ -27,7 +27,7 @@
 	--stdin-text-default:#3c4257;
 	--stdin-text-secundary:#697386;
 
-	--stdin-layout-spacing:10px;
+	--stdin-layout-spacing:15px;
 	--stdin-ui-tooltip-spacing:calc(var(--stdin-layout-spacing)*2);
 
 	--stdin-ui-label-spacing:var(--stdin-layout-spacing);

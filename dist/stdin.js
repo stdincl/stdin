@@ -41,6 +41,9 @@ String.prototype.normalize = function(){
 	if(this===true){return 'true';}
 	return ((this?(this.replace?$('<div></div>').html(this.replace(/<br\s*\/?>/mg,"\n")).text():this):'')+'').toString();
 };
+String.prototype.path = function(object){ 
+	return this.split('/').reduce((t,i)=>t?(t[i]?t[i]:''):'',object);
+};
 Array.prototype.mapID = function(varName,property) {
     return varName + this.map(function(e){ return '['+e[property]+']'; }).join('');
 };

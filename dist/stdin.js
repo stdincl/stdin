@@ -393,16 +393,27 @@ window.STDin = {
 		}); 
 	}
 };
+const BridgePromisePlaceholder = function(){
+	this.thens = [];
+	this.catchs = [];
+	this.finallys = [];
+	this.then = function(fn){ this.thens.push(fn); return this; };
+	this.catch = function(fn){ this.catchs.push(fn); return this; };
+	this.finally = function(fn){ this.finallys.push(fn); return this; };
+};
 $.fn.bridge = function(path,options){
-	return new Promise((resolve,reject)=>{
-		$(this).on('submit',function(e){
-			e.preventDefault();
-			var optionsOverride = $.extend({},STDin.defaultBridgeOptions,options);
-			optionsOverride.data = new FormData(this);
-			STDin.bridge(path,optionsOverride).then(resolve).catch(reject);
-			return false;
-		});
+	var bridge = new BridgePromisePlaceholder();
+	$(this).on('submit',function(e){
+		e.preventDefault();
+		var optionsOverride = $.extend({},STDin.defaultBridgeOptions,options);
+		optionsOverride.data = new FormData(this);
+		var connection = STDin.bridge(path,optionsOverride);
+		bridge.thens.forEach((fn)=>connection.then(fn));
+		bridge.catchs.forEach((fn)=>connection.catch(fn));
+		bridge.finallys.forEach((fn)=>connection.finally(fn));
+		return false;
 	});
+	return bridge;
 };
 $.fn.hasAttr = function(name) {  
 	return this.attr(name) !== undefined && this.attr(name) !== false;

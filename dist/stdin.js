@@ -473,7 +473,7 @@ $.fn.modal = function(options){
 						(
 							(settings.title!==false||settings.closable)?[
 								'<std-modal-head>',
-									'<span>',(settings.title?settings.title:''),'</span>',
+									'<span>',STDin.translate(settings.title?settings.title:''),'</span>',
 									(settings.closable?'<a href="#">✕</a>':''),
 								'</std-modal-head>',
 							].join(''):''

@@ -68,8 +68,9 @@ std-form {
 			font-family:var(--stdin-font);
 			outline:none;
 			transition:0.3s;
+			width:100%;
 			-webkit-appearance:none;
-			-webkit-tap-highlight-color: transparent;
+			-webkit-tap-highlight-color:transparent;
 		}
 		std-input > p {
 			display:block;
@@ -98,9 +99,9 @@ std-form {
 		std-input > [type=file] + label {
 			pointer-events:none;
 			position:relative;
-			white-space: nowrap;
-		    overflow: hidden;
-		    text-overflow: ellipsis;
+			white-space:nowrap;
+		    overflow:hidden;
+		    text-overflow:ellipsis;
 			padding-right:var(--stdin-input-height);
 		}
 		std-input > select + label:empty::before {
@@ -245,13 +246,13 @@ std-form {
 		std-input > a {
 			position:absolute;
 			top:0;
-			display:flex;
+			display:flex !important;
 			align-items:center;
 			justify-content:center;
 			width:var(--stdin-input-height);
 			height:var(--stdin-input-height);
 			box-sizing:border-box;
-			font-size:16px;
+			font-size:16px !important;
 			z-index:10;
 		}
 		std-input > i {
@@ -464,19 +465,19 @@ std-form {
 			display:flex;
 			flex-direction:column;
 			overflow:auto;
-	    	justify-content: center;
+	    	justify-content:center;
 	    	align-items:center;
 			padding:var(--stdin-spacing-big);
 		}
 			std-toplayer std-modal {
-				min-height: 0;
-				display: flex;
-				flex-direction: column;
-				background: var(--stdin-solid);
-				border-radius: var(--stdin-round);
-				max-width: 90%;
-				margin: 0 auto;
-				box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+				min-height:0;
+				display:flex;
+				flex-direction:column;
+				background:var(--stdin-solid);
+				border-radius:var(--stdin-round);
+				max-width:90%;
+				margin:0 auto;
+				box-shadow:0 3px 8px rgba(0, 0, 0, 0.1);
 				overflow:hidden;
 			}
 				std-toplayer std-modal std-modal-head {

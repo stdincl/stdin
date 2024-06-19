@@ -20,6 +20,30 @@ html,body,*,form,form * {
 	-webkit-font-smoothing:antialiased;
 	resize:none;
 }
+
+
+/* Hack to overlay datepicker */
 .datepicker-container {
     z-index:100000000000000000000 !important;
+}
+/* Hack to include uiicons on all elements */
+[class^=fi-tr-]:before, 
+[class^=fi-rr-]:before,
+[class*=" fi-tr-"]:before,
+[class*=" fi-rr-"]:before {
+    font-style: normal;
+    font-weight: 400 !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height:0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+[class^=fi-tr-]:before, 
+[class*=" fi-tr-"]:before {
+    font-family: uicons-thin-rounded !important;
+}
+[class^=fi-rr-]:before,
+[class*=" fi-rr-"]:before {
+    font-family: uicons-regular-rounded !important;
 }

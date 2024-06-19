@@ -1,6 +1,6 @@
 {
   "name": "stdin",
-  "version": "1.3.6",
+  "version": "2.0.0",
   "main": "dist/stdin.js",
   "repository": "https://github.com/stdincl/stdin/",
   "author": "STDin <diego.rodriguez.gomez@stdin.cl>",

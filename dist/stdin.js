@@ -8,7 +8,7 @@ String.prototype.toFilterable = function() {
     return (this).normalize().replaceAll(' ','').toLowerCase().replaceAll('á','a').replaceAll('é','e').replaceAll('í','i').replaceAll('ó','o').replaceAll('ú','u').replaceAll('ñ','n');
 };
 String.prototype.contains = function(search) {
-    return this.indexOf(search)>=0;
+    return this.indexOf(search+'')>=0;
 };
 String.prototype.toDate = function(){
 	var d = this.split('-');
@@ -39,7 +39,7 @@ String.prototype.normalize = function(){
 	if(this===0){return '0';}
 	if(this===false){return 'false';}
 	if(this===true){return 'true';}
-	return ((this?(this.replace?$('<div></div>').html(this.replace(/<br\s*\/?>/mg,"\n")).text():this):'')+'').toString();
+	return ((this?(this.replace?$('<div></div>').html(this.replace(/<br\s*\/?>/mg,"\n")).text():this):'')+'').toString().trim();
 };
 String.prototype.path = function(object){ 
 	return this.split('/').reduce((t,i)=>t?(t[i]?t[i]:''):'',object);
@@ -55,7 +55,7 @@ Array.prototype.paginate = function(rpp,p){
 	return this.clone().slice(p * rpp, (p + 1) * rpp);
 };
 Array.prototype.contains = function(search) {
-    return this.indexOf(search)>=0;
+    return this.map((v)=>v+'').indexOf(search+'')>=0;
 };
 Array.prototype.swap = function(index_A, index_B) {
     var input = this; 
@@ -70,33 +70,6 @@ Array.prototype.random = function(){
 };
 Array.prototype.$ = function(){
 	return $(this.join(''));
-};
-Array.prototype.slider = function(){
-    var pop = [
-        '<div class="stdin-full">',
-            '<div class="stdin-full-slider owl-carousel"></div>',
-            '<div class="stdin-full-slider-close fa fa-times"></div>',
-        '</div>'
-    ].$();
-    var ioFullSliderList = pop.find('.stdin-full-slider');
-    $.each(this,function(i,imageURL){
-        ['<div class="stdin-full-slider-image" style="background-image:url(\''+imageURL+'\');"></div>'].$().appendTo(ioFullSliderList);
-    });
-    ioFullSliderList.owlCarousel({
-        nav:this.length>1,
-        items:1
-    });
-    pop.appendTo('body');
-    pop.find('.stdin-full-slider-close').on('click',function(e){
-        e.preventDefault();
-        pop.removeClass('open');
-        setTimeout(function(){
-            pop.remove();
-        },301)
-    });
-    setTimeout(function(){
-        pop.addClass('open');
-    },10);
 };
 Array.prototype.normalize = function(){ 
 	return this.toString().normalize();
@@ -145,164 +118,10 @@ Date.prototype.addDays = function(days) {
 Date.prototype.normalize = function(){ 
 	return this.toString().normalize();
 };
-$.fn.hasAttr = function(name) {  
-	return this.attr(name) !== undefined && this.attr(name) !== false;
-};
-$.fn.fill = function(data){
-	return this.each(function(i,f){
-		f = $(f);
-		$.each(data,function(name,value){
-			var i = f.find('[name='+name+']');
-			if(
-				i.attr('type')=='checkbox'
-				||
-				i.attr('type')=='radio'
-			){
-				i.prop('checked',(
-					value=='1'
-					||
-					value==1
-					||
-					value===true
-					||
-					value=='on'
-				));
-			}else{
-				i.val((value).toString().normalize());
-			}
-		});
-		f.find('select,[type=file]').trigger('update');
-	});
-};
-$.fn.stdinUpdateListeners = function(){
-	return this.each(function(i,f){
-		return $(f).on('update',function(){
-			var t = '&nbsp;';
-			var d = $(this).attr('placeholder')?$(this).attr('placeholder'):'Seleccionar';
-			if($(this).prop("tagName").toLowerCase()=='select'){
-				t = $(this).find('option:selected').html();
-			}else{
-				t = $(this).val();
-				t = t.replaceAll('\\','/');
-				t = t.split('/');
-				t = t[t.length-1];
-			}
-			t = t==undefined?d:t;
-			$(this).next('*').html((t=='&nbsp;'||t=='')?d:t);
-		}).on('change',function(){
-			$(this).trigger('update');
-		}).trigger('update');
-	});
-};
-$.fn.close = function(){
-	return this.trigger('stdin-modal-close');
-};
-const BridgePromisePlaceholder = function(){
-	this.thens = [];
-	this.catchs = [];
-	this.finallys = [];
-	this.then = function(fn){ this.thens.push(fn); return this; };
-	this.catch = function(fn){ this.catchs.push(fn); return this; };
-	this.finally = function(fn){ this.finallys.push(fn); return this; };
-};
-$.fn.bridge = function(path,options){
-	var bridge = new BridgePromisePlaceholder();
-	$(this).on('submit',function(e){
-		e.preventDefault();
-		var optionsOverride = $.extend({},STDin.defaultBridgeOptions,options);
-		optionsOverride.data = new FormData(this);
-		var connection = STDin.bridge(path,optionsOverride);
-		bridge.thens.forEach((fn)=>connection.then(fn));
-		bridge.catchs.forEach((fn)=>connection.catch(fn));
-		bridge.finallys.forEach((fn)=>connection.finally(fn));
-		return false;
-	});
-	return bridge;
-};
-$.fn.modal = function(options){
-	/* 	
-		Options:
-			closer: selector to close window on click
-		Events 
-			close: on modal closes (removed from DOM),
-			hide: on modal is hidded (not removed from DOM),
-			show: on modal is showed
-	*/
-	var settings = $.extend({},{
-		closer:'.stdin-modal-close-button',
-	},options);
-	return this.each((i,element)=>{
-		var _self = $(element);
-		var w = [
-			'<div class="stdin-modal stdin-disabled">',
-				'<div class="stdin-modal-content">',
-				'</div>',
-			'</div>'
-		].$().on('stdin-modal-show',function(){
-			_self.trigger('show');
-			setTimeout(()=>{
-				$(this).removeClass('stdin-disabled');
-			},2);
-		}).on('stdin-modal-hide',function(){
-			_self.trigger('hide');
-			$(this).addClass('stdin-disabled');
-		}).on('stdin-modal-close',function(){
-			$(this).addClass('stdin-disabled');
-			_self.trigger('close');
-			setTimeout(()=>{
-				w.remove();
-			},300);
-		});
-		_self.appendTo(w.find('.stdin-modal-content'));
-		_self.find(settings.closer).on('click',(e)=>{
-			e.preventDefault();
-			w.trigger('stdin-modal-close');
-		});
-		w.appendTo('body');
-		w.trigger('stdin-modal-show');
-	});
-};
 window.STDin = {
 	server:'',
 	credentials:{},
-	alert:function(options){
-		var settings = $.extend({},{
-			title:'Mensaje',
-			message:''
-		},typeof options==='string'?{
-			title:'Alert',
-			message:options
-		}:options);
-		/* 
-			Returns: 
-				DOM Element
-			Options:
-				title
-				message
-			Events 
-				[$.fn.modal..]events
-		*/
-		var w = [
-			'<div class="stdin-card">',
-				'<div class="stdin-card-head">',
-					'<div class="stdin-title">',
-						STDin.translate(settings.title),
-					'</div>',
-				'</div>',
-				'<div class="stdin-card-body">',
-					'<div class="stdin-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
-				'</div>',
-				'<div class="stdin-card-foot">',
-					'<div class="stdin-input stdin-primary">',
-						'<input type="button" class="stdin-modal-close-button" value="',STDin.translate('done').nl2br(),'" />',
-					'</div>',
-				'</div>',
-			'</div>'
-		].$().modal();
-		w.find('.stdin-modal-close-button').get(0).focus();
-		return w;
-	},
-	confirm:function(options){
+	prompt:function(settings){
 		/* 
 			Returns: 
 				DOM Element
@@ -310,54 +129,149 @@ window.STDin = {
 				title : Window title : default 'Confirmar'
 				message : Window message : default ''
 			confirm:Events 
-				[$.fn.modal..]events
-				resolve(e:event, accept:bool): on resolve message
-				cancel: on cancel message
-				accept: on accept message
+				close: Cuando se cierra la ventana
+				resolve: Cuando se presiona el botón aceptar
+				reject: Cuando se presiona el botón aceptar
 		*/
 		var settings = $.extend({},{
-			title:'Confirmar',
+			title:'alert-message',
+			subtitle:'system-message',
 			message:'',
-			accept:'Aceptar',
-			cancel:'Cancelar'
-		},typeof options==='string'?{
-			message:options
-		}:options);
-		var w = [
-			'<div class="stdin-card">',
-				'<div class="stdin-card-head">',
-					'<div class="stdin-title">',
-						STDin.translate(settings.title),
-					'</div>',
-				'</div>',
-				'<div class="stdin-card-body">',
-					'<div class="stdin-data"><p>',STDin.translate(settings.message).nl2br(),'</p></div>',
-				'</div>',
-				'<div class="stdin-card-foot">',
-					'<div class="stdin-row">',
-						'<div class="stdin-cell">',
-							'<div class="stdin-input">',
-								'<input type="button" class="stdin-modal-cancel-button" value="',STDin.translate(settings.cancel).nl2br(),'" />',
-							'</div>',
-						'</div>',
-						'<div class="stdin-cell">',
-							'<div class="stdin-input stdin-primary">',
-								'<input type="button" class="stdin-modal-accept-button" value="',STDin.translate(settings.accept).nl2br(),'" />',
-							'</div>',
-						'</div>',
-					'</div>',
-				'</div>',
-			'</div>'
-		].$().modal();
-		w.find('.stdin-modal-cancel-button').on('click',function(e){
+
+			label:'Ingrese un valor',
+			placeholder:'Valor',
+			modifiers:[],
+			type:"text",
+
+			cancelable:true,
+
+			destructive:false,
+			closable:false,
+			accept:'accept',
+			reject:'reject',
+		},settings);
+		let modal = [
+			'<std-form>',
+				'<std-input>',
+					'<label>',STDin.translate(settings.subtitle).nl2br(),'</label>',
+					'<p>',STDin.translate(settings.message).nl2br(),'</p>',
+				'</std-input>',
+				'<std-input ',settings.modifiers.join(' '),'>',
+					'<label>',STDin.translate(settings.label).nl2br(),'</label>',
+					'<input class="stdin-prompt-value-holder" type="',settings.type,'" placeholder="',STDin.translate(settings.placeholder),'" />',
+				'</std-input>',
+				'<std-inputs>',
+					(
+						settings.cancelable?[
+							'<std-input>',
+								'<input type="button" value="',STDin.translate(settings.reject),'" />',
+							'</std-input>'
+						].join(''):''
+					),
+					'<std-input>',
+						'<input',(settings.destructive?' destructive':''),' type="submit" value="',STDin.translate(settings.accept),'" />',
+					'</std-input>',
+				'</std-inputs>',
+			'</std-form>'
+		].$().modal(settings);
+		modal.find('[type=button]').on('click',function(e){
 			e.preventDefault();
-			w.trigger('cancel').trigger('resolve',[false]).close();
-		}).get(0).focus();
-		w.find('.stdin-modal-accept-button').on('click',function(e){
-			e.preventDefault();
-			w.trigger('accept').trigger('resolve',[true]).close();
+			modal.close();
+			modal.trigger('reject');
 		});
-		return w;
+		modal.find('[type=submit]').on('click',function(e){
+			e.preventDefault();
+			modal.close();
+			modal.trigger('resolve',[$(this).parents('std-form').find('.stdin-prompt-value-holder').val()]).trigger('accept');
+		}).get(0).focus();
+		return modal;
+	},
+	alert:function(settings){
+		/* 
+			Returns: 
+				DOM Element
+			confirm:Options
+				title : Window title : default 'Confirmar'
+				message : Window message : default ''
+			confirm:Events 
+				close: Cuando se cierra la ventana
+				accept: Cuando se presiona el botón aceptar
+		*/
+		var settings = $.extend({},{
+			title:'alert-message',
+			subtitle:'system-message',
+			message:'',
+			destructive:false,
+			closable:false,
+			accept:'accept'
+		},settings);
+		let modal = [
+			'<std-form>',
+				'<std-input>',
+					'<label>',STDin.translate(settings.subtitle).nl2br(),'</label>',
+					'<p>',STDin.translate(settings.message).nl2br(),'</p>',
+				'</std-input>',
+				'<std-input>',
+					'<input',(settings.destructive?' destructive':''),' type="submit" value="',STDin.translate(settings.accept),'" />',
+				'</std-input>',
+			'</std-form>'
+		].$().modal(settings);
+		modal.find('[type=submit]').on('click',function(e){
+			e.preventDefault();
+			modal.close();
+			modal.trigger('accept');
+		}).get(0).focus();
+		return modal;
+	},
+	confirm:function(settings){
+		/* 
+			Returns: 
+				DOM Element
+			confirm:Options
+				title : Window title : default 'Confirmar'
+				message : Window message : default ''
+			confirm:Events 
+				close: Cuando se cierra la ventana
+				resolve: Cuando se presiona el botón aceptar
+				accept: Cuando se presiona el botón aceptar
+				reject: Cuando se presiona el botón aceptar
+		*/
+		var settings = $.extend({},{
+			title:'alert-message',
+			subtitle:'system-message',
+			message:'',
+			destructive:false,
+			closable:false,
+			accept:'accept',
+			reject:'reject',
+		},settings);
+		let modal = [
+			'<std-form>',
+				'<std-input>',
+					'<label>',STDin.translate(settings.subtitle).nl2br(),'</label>',
+					'<p>',STDin.translate(settings.message).nl2br(),'</p>',
+				'</std-input>',
+				'<std-inputs>',
+					'<std-input>',
+						'<input type="button" value="',STDin.translate(settings.reject),'" />',
+					'</std-input>',
+					'<std-input>',
+						'<input',(settings.destructive?' destructive':''),' type="submit" value="',STDin.translate(settings.accept),'" />',
+					'</std-input>',
+				'</std-inputs>',
+			'</std-form>'
+		].$().modal(settings);
+		modal.find('[type=button]').on('click',function(e){
+			e.preventDefault();
+			modal.close();
+			modal.trigger('resolve',[false]).trigger('reject');
+		}).get(0).focus();
+		modal.find('[type=submit]').on('click',function(e){
+			e.preventDefault();
+			modal.close();
+			modal.trigger('resolve',[true]).trigger('accept');
+		}).get(0).focus();
+		return modal;
 	},
 	moneyGlobal:function(n){
 		n = parseFloat(n);
@@ -389,19 +303,15 @@ window.STDin = {
 		location.reload();
 	},
     loader:function(showProgressBar){
-    	showProgressBar = showProgressBar?true:false;
-    	var loaderIndex = '#stdin-loader-id-'+(new Date().getTime())+'-'+Math.round(Math.random()*1000);
-    	while($(loaderIndex).length>0){
-    		loaderIndex = '#stdin-loader-id-'+(new Date().getTime())+'-'+Math.round(Math.random()*1000);
-    	}
-      	return [
-      		'<div class="stdin-loader" id="'+loaderIndex+'">',
-				'<b class="fa fa-spinner fa-3x fa-pulse"></b>',
-				(showProgressBar?'<div class="stdin-loading-bar"><div class="stdin-loading-progress"></div></div>':''),
-			'</div>'
-      	].$().on('progress',function(e,progress){
-      		$(this).find('.stdin-loading-progress').css('width',progress+'%');
-      	}).appendTo('body');
+      	let modal = [
+      		'<std-toplayer spinner>',
+				(showProgressBar?'<std-progress-bar><b></b></std-progress-bar>':''),
+			'</std-toplayer>'
+      	].$().appendTo('body');
+      	setTimeout(()=>{
+			modal.attr('visible','');
+		},2);
+		return modal;
     },
 	translate:function(c){
 		c = (c+'').toString();
@@ -423,7 +333,6 @@ window.STDin = {
 				data:{}
 			Returns Promise
 		*/
-		var path = path;
 		var settings = $.extend({},STDin.defaultBridgeOptions,options);
 		if(!(settings.data instanceof FormData)){
 			settings.data = $.extend({},settings.data);
@@ -458,7 +367,7 @@ window.STDin = {
 	                var xhr = new window.XMLHttpRequest();
 					if(settings.hasFiles && settings.loader){
 		                xhr.upload.addEventListener('progress',(evt)=>{
-			                loaderElement.trigger('progress',[((evt.loaded/evt.total)*100)]);
+			                loaderElement.progress((evt.loaded/evt.total)*100);
 		                },false);
 					}
 	                return xhr;
@@ -484,41 +393,267 @@ window.STDin = {
 		}); 
 	}
 };
-$(()=>{
-	$('.stdin-input select,.stdin-input [type=file]').stdinUpdateListeners();
-	/*
-		Pollyfills
-		stdin-floating-label
-	*/
-		$([
-			'[type=text]',
-			'[type=password]',
-			'[type=number]',
-			'[type=decimal]',
-			'[type=date]',
-			'[type=email]',
-			'textarea',
-		].map((element)=>{
-			return '.stdin-input.stdin-floating-label '+element;
-		}).join(',')).on('stdin-focus',function(){
-			$(this).parents('.stdin-input').addClass('stdin-state-focused');
-			$(this).attr('placeholder-backup',$(this).attr('placeholder'));
-			$(this).attr('placeholder','');
-		}).on('focus',function(){
-			$(this).trigger('stdin-focus');
-		}).on('stdin-unfocus',function(){
-			if($(this).val()==''){
-				$(this).parents('.stdin-input').removeClass('stdin-state-focused');
-				$(this).attr('placeholder',$(this).attr('placeholder-backup'));
-				$(this).removeAttr('placeholder-backup');
-			}
-		}).on('blur',function(){
-			$(this).trigger('stdin-unfocus');
+$.fn.bridge = function(path,options){
+	return new Promise((resolve,reject)=>{
+		$(this).on('submit',function(e){
+			e.preventDefault();
+			var optionsOverride = $.extend({},STDin.defaultBridgeOptions,options);
+			optionsOverride.data = new FormData(this);
+			STDin.bridge(path,optionsOverride).then(resolve).catch(reject);
+			return false;
 		});
-		$([
-			'[type=file]',
-			'select',
-		].map((element)=>{
-			return '.stdin-input.stdin-floating-label '+element;
-		}).join(',')).parents('.stdin-input').addClass('stdin-state-focused');
+	});
+};
+$.fn.hasAttr = function(name) {  
+	return this.attr(name) !== undefined && this.attr(name) !== false;
+};
+$.fn.fill = function(data){
+	return this.each(function(i,f){
+		f = $(f);
+		$.each(data,function(name,value){
+			var i = f.find('[name='+name+']');
+			if(
+				i.attr('type')=='checkbox'
+				||
+				i.attr('type')=='radio'
+			){
+				i.prop('checked',(
+					value=='1'
+					||
+					value==1
+					||
+					value===true
+					||
+					value=='on'
+				));
+			}else{
+				i.val((value).toString().normalize());
+			}
+		});
+		f.find('select,[type=file]').trigger('update');
+	});
+};
+$.fn.progress = function(progress){
+	return this.each((i,progressBar)=>{
+		$(progressBar).find('std-progress-bar > *').css('width',progress+'%');
+	});
+};
+$.fn.close = function(){
+	return this.each((i,modal)=>{
+		modal = $(modal);
+		if(modal.prop('tagName').toLowerCase()=='std-toplayer'){
+			modal.removeAttr('visible');
+			setTimeout(()=>{
+				modal.remove();
+			},301);	
+		}else{
+			modal.parents('std-toplayer').close();
+		}
+	});
+};
+$.fn.modal = function(options){
+	/* 	
+		Options:
+			title:string => Make title appears
+			closer: selector to close window on click
+		Events 
+			close: on modal closes (removed from DOM)
+	*/
+	var settings = $.extend({},{
+		title:false,
+		closable:true,
+		closeSelector:'.std-modal-close',
+	},options);
+	return this.each((i,content)=>{
+		var content = $(content);
+		var modal = [
+			'<std-toplayer>',
+				'<std-modal-wrap>',
+					'<std-modal>',
+						(
+							(settings.title!==false||settings.closable)?[
+								'<std-modal-head>',
+									'<span>',(settings.title?settings.title:''),'</span>',
+									(settings.closable?'<a href="#">✕</a>':''),
+								'</std-modal-head>',
+							].join(''):''
+						),
+						'<std-modal-content></std-modal-content>',
+					'</std-modal>',
+				'</std-modal-wrap>',
+			'</std-toplayer>'
+		].$();
+		content.appendTo(modal.find('std-modal-content'));
+		modal.find(settings.closeSelector+',std-modal-head > a').on('click',function(e){
+			e.preventDefault();
+			$(this).parents('std-toplayer').close();
+		});
+		modal.appendTo('body');
+		setTimeout(()=>{
+			modal.attr('visible','');
+		},2);
+		modal.input();
+	});
+};
+$.fn.dropdown = function(){
+	return this.each(function(i,input){
+		input = $(input);
+		// Element for select simple or collection in correct name input
+		if(input.hasAttr('collection')){
+			// Crear lista de destino
+			['<std-items></std-items>'].$().insertAfter(input);
+		}else{
+			['<input type="hidden" dropdown-value />'].$().attr('name',input.attr('name')).insertAfter(input);
+		}
+		if(input.hasAttr('filterable')){
+			let searchPromise = eval(input.attr('filterable'));
+			if(searchPromise){
+				input.on('keyup',function(){
+					let stdInput = $(this).parent().removeAttr('loading');
+					clearTimeout($(this).data('search-timer'));
+					$(this).data('search-timer',setTimeout(()=>{
+						$(this).trigger('search');
+					},500));
+				}).on('search',()=>{
+					let stdInput = $(this).parent().attr('loading','');
+					searchPromise($(this).val()).then((result)=>{
+						input.data('options',result).trigger('stdinput-update-list');
+					}).finally(()=>stdInput.removeAttr('loading'));
+				});
+				input.parents('std-input').on('mouseleave',function(){
+					$(this).find('[dropdown]').val();
+				});
+			}else{
+				input.on('keydown',()=>false);
+			}
+		}else{
+			input.on('keydown',()=>false);
+		}
+		input.attr('dropdown-name',input.attr('name')).removeAttr('name');
+		// Actualiza la lista disponible de opciones
+			input.on('stdinput-update-list',function(e){
+				e.stopPropagation();
+				let insertable = $(this).hasAttr('insertable');
+				let options = $(this).data('options');
+					options = Array.isArray(options)?options:[];
+				let stdOptions = $(this).next('std-options');
+				if(stdOptions.length==0){
+					stdOptions = ['<std-options></std-options>'].$().insertAfter($(this));
+				}
+				stdOptions.find('std-option').remove();
+				if(insertable){
+					let insertableValue = $(this).val().normalize();
+					if(insertableValue!=''){
+						['<std-option></std-option>'].$().text(insertableValue).data('option',{
+							value:insertableValue,
+							text:insertableValue,
+							inserted:true
+						}).appendTo(stdOptions);
+					}
+				}
+				options.forEach((option)=>{
+					['<std-option></std-option>'].$().text(option.text.normalize()).data('option',option).appendTo(stdOptions);
+				});
+				stdOptions.find('std-option').on('click',function(e){
+					e.preventDefault();
+					let dropdown = $(this).parent().siblings('[dropdown]');
+					let beforeSelect = eval(dropdown.attr('beforeSelect'));
+					if(beforeSelect){
+						let stdInput = dropdown.parent().attr('loading','');
+						beforeSelect($(this).data('option'))
+							.then((option)=>{
+								dropdown.data('option',$(this).data('option')).trigger('stdinput-add-option');
+							})
+							.finally(()=>stdInput.removeAttr('loading'));
+					}else{
+						dropdown.data('option',$(this).data('option')).trigger('stdinput-add-option');
+					}
+				});
+			});
+		// selecciona una opcion al hacer click
+			input.on('stdinput-add-option',function(e){
+				e.stopPropagation();
+				let option = $(this).data('option');
+				let options = $(this).data('options');
+					options = options?options:[];
+				if(option){
+					if($(this).hasAttr('collection')){
+						// Agregar elemento a la lista de destino
+						let deletable = $(this).hasAttr('deletable');
+						let stdItems = $(this).siblings('std-items');
+						if(
+							$(this).hasAttr('unique')
+							&&
+							Object.keys(stdItems.find('std-item input').toArray()
+								.map((input)=>$(input).val())
+								.reduce((object,value)=>{
+									object[value] = 1;
+									return object;
+								},{}))
+							.contains(option.value)
+						){
+							return;
+						}
+						let item = ['<std-item',(deletable?' deletable':''),'></std-item>'].$().appendTo(stdItems);
+								   ['<span></span>'].$().text(option.text).appendTo(item);
+								   ['<input type="hidden" />'].$().attr('name',$(this).attr('dropdown-name')+'[]').val(option.value).appendTo(item);
+						if(deletable){
+							item.on('click',function(e){
+								e.preventDefault();
+								let dropdown = $(this).parent().siblings('[dropdown]');
+								let beforeDelete = eval(dropdown.attr('beforeDelete'));
+								if(beforeDelete){
+									let stdInput = dropdown.parent().attr('loading','');
+									beforeDelete($(this).data('option'))
+										.then(()=>{
+											$(this).remove();
+										})
+										.finally(()=>stdInput.removeAttr('loading'));
+								}else{
+									$(this).remove();
+								}
+							});
+						}
+					}else{
+						// setear el valor de texto y value en los inputs creados
+						$(this).siblings('[dropdown-value]').val(option.value);
+						$(this).val(option.text);
+					}
+				}
+			});
+		return input;
+	});
+};
+$.fn.input = function(){
+	return this.each(function(i,stdInput){
+		stdInput = $(stdInput);
+		if(stdInput.prop('tagName').toLowerCase()=='std-input'){
+			if(!stdInput.hasAttr('std-started')){
+				stdInput.attr('std-started','');
+
+				stdInput.find('select').on('update',function(){
+					$(this).next('label').text($(this).find('option:selected').text());
+				}).on('change',function(){
+					$(this).trigger('update');
+				}).trigger('update');
+
+				stdInput.find('[type=file]').on('update',function(){
+					$(this).next('label').text($(this).val().replaceAll('\\','/').split('/').pop());
+				}).on('change',function(){
+					$(this).trigger('update');
+				}).trigger('update');
+
+				let input = stdInput.find('input');
+				if(input.hasAttr('dropdown')){
+					input.dropdown();
+				}
+			}
+			return stdInput;
+		}else{
+			return stdInput.find('std-input').input();
+		}
+	});
+};
+$(()=>{
+	$('body').input();
 });

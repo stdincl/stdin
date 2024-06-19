@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Sora:wght@100..800&display=swap');
+
+:root {
+	--stdin-font:"Sora", sans-serif;
+	
+	--stdin-font-size-base:14px;
+	--stdin-font-size-ratio:1.4;
+
+	--stdin-font-size-s:  calc(var(--stdin-font-size-base) / var(--stdin-font-size-ratio));
+	--stdin-font-size-m:  var(--stdin-font-size-base);
+	--stdin-font-size:    var(--stdin-font-size-m);
+	--stdin-font-size-l:  calc(var(--stdin-font-size-m)  * var(--stdin-font-size-ratio));
+	--stdin-font-size-xl: calc(var(--stdin-font-size-l)  * var(--stdin-font-size-ratio));
+	--stdin-font-size-xxl:calc(var(--stdin-font-size-xl) * var(--stdin-font-size-ratio));
+
+	--stdin-input:#f7f7f7;
+	--stdin-input-light:#fafafa;
+	--stdin-input-text:#403f46;
+	--stdin-input-text-strong:#111111;
+	--stdin-input-text-light:#cecdd5;
+	--stdin-input-border:#e2e4e9;
+	--stdin-input-height:40px;
+	--stdin-input-spacing-ratio:0.3;
+	--stdin-input-spacing:calc(var(--stdin-input-height)* var(--stdin-input-spacing-ratio));
+	
+	--stdin-input-solid:#ffffff;
+
+	--stdin-label:#222222;
+	--stdin-label-size:13px;
+	--stdin-label-spacing:10px;
+
+	--stdin-check-round:6px;
+	--stdin-check-size-ratio:0.55;
+	--stdin-check-size:calc(var(--stdin-input-height)*var(--stdin-check-size-ratio));
+	--stdin-check-font-size:calc(var(--stdin-check-size)*0.6);
+	--stdin-check-top:calc( (var(--stdin-input-height) - var(--stdin-check-size)) * 0.5 );
+
+	--stdin-file-chevron-size:8px;
+	--stdin-file-placeholder:'Seleccione un archivo';
+	--stdin-select-placeholder:'Seleccione una opción';
+
+	--stdin-round:8px;
+	--stdin-spacing:20px;
+	--stdin-spacing-big:30px;
+
+	--stdin-solid:#ffffff;
+	--stdin-solid-active:#fcfcfc;
+	--stdin-solid-text:#403f46;
+	--stdin-solid-text-secundary:#7e818e;
+	--stdin-solid-border:#e2e4e9;
+
+	--stdin-negative:#000000;
+	--stdin-negative-light:#00000044;
+
+	--stdin-primary:#7167ff;
+	--stdin-primary-text:#fff;
+	--stdin-primary-active:#5f53ff;
+
+	--stdin-destructive:#ff5b7c;
+	--stdin-destructive-text:#fff;
+	--stdin-destructive-active:#f0375c;
+
+	--stdin-constructive:#37bf87;
+	--stdin-constructive-text:#fff;
+	--stdin-constructive-active:#1aad71;
+
+	--stdin-loader-size:20px;
+	--stdin-loader-size-big:40px;
+	--stdin-loader-spacing:calc( (var(--stdin-input-height) - var(--stdin-loader-size)) * 0.5 );
+
+	--stdin-modal-background:#00000044;
+}

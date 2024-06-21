@@ -20,8 +20,10 @@
 	--stdin-input-text-light:#cecdd5;
 	--stdin-input-border:#e2e4e9;
 	--stdin-input-height:40px;
+	--stdin-input-height-small:30px;
 	--stdin-input-spacing-ratio:0.3;
 	--stdin-input-spacing:calc(var(--stdin-input-height)* var(--stdin-input-spacing-ratio));
+	--stdin-input-spacing-small:calc(var(--stdin-input-height-small)* var(--stdin-input-spacing-ratio));
 	
 	--stdin-input-solid:#ffffff;
 
@@ -32,8 +34,10 @@
 	--stdin-check-round:6px;
 	--stdin-check-size-ratio:0.55;
 	--stdin-check-size:calc(var(--stdin-input-height)*var(--stdin-check-size-ratio));
+	--stdin-check-size-small:calc(var(--stdin-input-height-small)*var(--stdin-check-size-ratio));
 	--stdin-check-font-size:calc(var(--stdin-check-size)*0.6);
 	--stdin-check-top:calc( (var(--stdin-input-height) - var(--stdin-check-size)) * 0.5 );
+	--stdin-check-top-small:calc( (var(--stdin-input-height-small) - var(--stdin-check-size)) * 0.5 );
 
 	--stdin-file-chevron-size:8px;
 	--stdin-file-placeholder:'Seleccione un archivo';

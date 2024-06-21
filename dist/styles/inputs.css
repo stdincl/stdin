@@ -15,7 +15,6 @@ std-form {
 			flex-direction:row;
 			gap:15px;
 			position:relative;
-			align-items:flex-end;
 		}
 			std-inputs > std-input {
 				flex:1;
@@ -63,7 +62,7 @@ std-form {
 			font-size:var(--stdin-font-size);
 			height:var(--stdin-input-height);
 			box-sizing:border-box;
-			padding:var(--stdin-input-spacing);
+			padding:0 var(--stdin-input-spacing);
 			color:var(--stdin-input-text);
 			font-family:var(--stdin-font);
 			outline:none;
@@ -72,6 +71,40 @@ std-form {
 			-webkit-appearance:none;
 			-webkit-tap-highlight-color:transparent;
 		}
+		std-input[small] > [type=text],
+		std-input[small] > [type=email],
+		std-input[small] > [type=password],
+		std-input[small] > [type=number],
+		std-input[small] > [type=date],
+		std-input[small] > [type=button],
+		std-input[small] > [type=submit],
+		std-input[small] > button,
+		std-input[small] > textarea,
+		std-input[small] > select + label,
+		std-input[small] > [type=file] + label,
+		std-input[small] > [type=checkbox] + label,
+		std-input[small] > [type=radio] + label {
+			height:var(--stdin-input-height-small);
+			padding:0 var(--stdin-input-spacing-small);
+		}
+		std-input[clear] > [type=text],
+		std-input[clear] > [type=email],
+		std-input[clear] > [type=password],
+		std-input[clear] > [type=number],
+		std-input[clear] > [type=date],
+		std-input[clear] > [type=button],
+		std-input[clear] > [type=submit],
+		std-input[clear] > button,
+		std-input[clear] > textarea,
+		std-input[clear] > select + label,
+		std-input[clear] > [type=file] + label,
+		std-input[clear] > [type=checkbox] + label,
+		std-input[clear] > [type=radio] + label {
+			padding:0;
+			border:none;
+			background:none;
+		}
+
 		std-input > p {
 			display:block;
 			font-size:var(--stdin-font-size);
@@ -97,12 +130,19 @@ std-form {
 		}
 		std-input > select + label,
 		std-input > [type=file] + label {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			pointer-events:none;
 			position:relative;
 			white-space:nowrap;
 		    overflow:hidden;
 		    text-overflow:ellipsis;
 			padding-right:var(--stdin-input-height);
+		}
+		std-input[small] > select + label,
+		std-input[small] > [type=file] + label {
+			padding-right:var(--stdin-input-height-small);
 		}
 		std-input > select + label:empty::before {
 			display:inline;
@@ -130,6 +170,10 @@ std-form {
 			content:'';
 			transition:0.3s;
 		}
+		std-input[small] > select + label::after,
+		std-input[small] > [type=file] + label::after {
+			right:var(--stdin-input-spacing-small);
+		}
 		std-input > select:hover + label::after,
 		std-input > [type=file]:hover + label::after {
 			border-color:var(--stdin-input-text-strong);
@@ -149,7 +193,23 @@ std-form {
 		std-input > a + [type=file] + label,
 		std-input > i + a + [type=file] + label,
 		std-input > a + i + [type=file] + label {
-			padding-right:calc( var(--stdin-input-height) + var(--stdin-input-height));
+			padding-right:calc( var(--stdin-input-height) * 2 );
+		}
+		std-input[small] > a + select + label::after,
+		std-input[small] > i + a + select + label::after,
+		std-input[small] > a + i + select + label::after,
+		std-input[small] > a + [type=file] + label::after,
+		std-input[small] > i + a + [type=file] + label::after,
+		std-input[small] > a + i + [type=file] + label::after {
+			right:calc( var(--stdin-input-spacing-small) + var(--stdin-input-height-small));
+		}
+		std-input[small] > a + select + label,
+		std-input[small] > i + a + select + label,
+		std-input[small] > a + i + select + label,
+		std-input[small] > a + [type=file] + label,
+		std-input[small] > i + a + [type=file] + label,
+		std-input[small] > a + i + [type=file] + label {
+			padding-right:calc( var(--stdin-input-height-small) * 2 );
 		}
 	/* buttons */
 		std-input > [type=submit],
@@ -196,10 +256,18 @@ std-form {
 			position:relative;
 			padding-left:calc(var(--stdin-check-size) + var(--stdin-input-spacing));
 		}
+		std-input[small] > [type=checkbox] + label,
+		std-input[small] > [type=radio] + label {
+			padding-left:calc(var(--stdin-check-size-small) + var(--stdin-input-spacing-small));
+		}
 		std-input > [type=checkbox] + label:empty,
 		std-input > [type=radio] + label:empty {
 			padding-left:var(--stdin-check-size);
 			padding-right:0;
+		}
+		std-input[small] > [type=checkbox] + label:empty,
+		std-input[small] > [type=radio] + label:empty {
+			padding-left:var(--stdin-check-size-small);
 		}
 
 		std-input > [type=checkbox] + label:before,
@@ -225,6 +293,12 @@ std-form {
 			transition:0.3s;
 			line-height:0;
 			content:"✓";
+		}
+		std-input[small] > [type=checkbox] + label:before,
+		std-input[small] > [type=radio] + label::before {
+			top:var(--stdin-check-top-small);
+			width:var(--stdin-check-size-small);
+			height:var(--stdin-check-size-small);
 		}
 		std-input > [type=radio] + label::before {
 			border-radius:50%;
@@ -255,6 +329,11 @@ std-form {
 			font-size:16px !important;
 			z-index:10;
 		}
+		std-input[small] > i,
+		std-input[small] > a {
+			width:var(--stdin-input-height-small);
+			height:var(--stdin-input-height-small);
+		}
 		std-input > i {
 			left:0;
 			pointer-events:none;
@@ -284,13 +363,38 @@ std-form {
 			std-input > i + a + textarea,
 			std-input > i + a + select + label,
 			std-input > i + a + [type=file] + label {
-				padding-left:var(--stdin-input-height);
+				padding-left:var(--stdin-input-height) !important;
 			}
 			std-input > i + [type=checkbox] + label,
 			std-input > i + [type=radio] + label,
 			std-input > i + a + [type=checkbox] + label,
 			std-input > i + a + [type=radio] + label {
-				margin-left:var(--stdin-input-height);
+				margin-left:var(--stdin-input-height) !important;
+			}
+
+			std-input[small] > i + [type=text],
+			std-input[small] > i + [type=email],
+			std-input[small] > i + [type=password],
+			std-input[small] > i + [type=date],
+			std-input[small] > i + [type=number],
+			std-input[small] > i + textarea,
+			std-input[small] > i + select + label,
+			std-input[small] > i + [type=file] + label,
+			std-input[small] > i + a + [type=text],
+			std-input[small] > i + a + [type=email],
+			std-input[small] > i + a + [type=password],
+			std-input[small] > i + a + [type=date],
+			std-input[small] > i + a + [type=number],
+			std-input[small] > i + a + textarea,
+			std-input[small] > i + a + select + label,
+			std-input[small] > i + a + [type=file] + label {
+				padding-left:var(--stdin-input-height-small) !important;
+			}
+			std-input[small] > i + [type=checkbox] + label,
+			std-input[small] > i + [type=radio] + label,
+			std-input[small] > i + a + [type=checkbox] + label,
+			std-input[small] > i + a + [type=radio] + label {
+				margin-left:var(--stdin-input-height-small) !important;
 			}
 
 			std-input > a + [type=text],
@@ -316,6 +420,31 @@ std-form {
 			std-input > a + i + [type=checkbox] + label,
 			std-input > a + i + [type=radio] + label {
 				margin-right:var(--stdin-input-height);
+			}
+
+			std-input[small] > a + [type=text],
+			std-input[small] > a + [type=email],
+			std-input[small] > a + [type=password],
+			std-input[small] > a + [type=date],
+			std-input[small] > a + [type=number],
+			std-input[small] > a + textarea,
+			std-input[small] > a + select + label,
+			std-input[small] > a + [type=file] + label,
+			std-input[small] > a + i + [type=text],
+			std-input[small] > a + i + [type=email],
+			std-input[small] > a + i + [type=password],
+			std-input[small] > a + i + [type=date],
+			std-input[small] > a + i + [type=number],
+			std-input[small] > a + i + textarea,
+			std-input[small] > a + i + select + label,
+			std-input[small] > a + i + [type=file] + label {
+				padding-right:var(--stdin-input-height-small);
+			}
+			std-input[small] > a + [type=checkbox] + label,
+			std-input[small] > a + [type=radio] + label,
+			std-input[small] > a + i + [type=checkbox] + label,
+			std-input[small] > a + i + [type=radio] + label {
+				margin-right:var(--stdin-input-height-small);
 			}
 			/* Loader indicator */
 			std-input[loading] > a {
@@ -367,6 +496,9 @@ std-form {
 			transition:0.3s;
 			opacity:0;
 			pointer-events:none;
+		}
+		std-input[small] std-options {
+			top:var(--stdin-input-height-small);
 		}
 		std-input std-options:empty::before {
 			display:block;

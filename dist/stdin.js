@@ -606,7 +606,7 @@ $.fn.dropdown = function(){
 							return;
 						}
 						let item = ['<std-item',(deletable?' deletable':''),'></std-item>'].$().appendTo(stdItems);
-								   ['<span></span>'].$().text(option.text).appendTo(item);
+								   ['<span></span>'].$().text(option.text.normalize()).appendTo(item);
 								   ['<input type="hidden" />'].$().attr('name',$(this).attr('dropdown-name')+'[]').val(option.value).appendTo(item);
 						if(deletable){
 							item.on('click',function(e){
@@ -665,6 +665,4 @@ $.fn.input = function(){
 		}
 	});
 };
-$(()=>{
-	$('body').input();
-});
+$(()=>$('body').input());

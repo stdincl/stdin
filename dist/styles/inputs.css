@@ -130,9 +130,9 @@ std-form {
 		}
 		std-input > select + label,
 		std-input > [type=file] + label {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
+			display:flex;
+			flex-direction:column;
+			justify-content:center;
 			pointer-events:none;
 			position:relative;
 			white-space:nowrap;
@@ -466,7 +466,7 @@ std-form {
 			    border-radius:50%;
 			    border:2px solid transparent;
 			    border-color:#00000044 #ffffff44;
-
+			    pointer-events:none;
 			    
 			    transition:0.4s;
 			    opacity:0;

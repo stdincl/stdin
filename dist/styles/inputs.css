@@ -195,6 +195,17 @@ std-form {
 		std-input > a + i + [type=file] + label {
 			padding-right:calc( var(--stdin-input-height) * 2 );
 		}
+		std-input > a + i + button,
+		std-input > a + i + [type=submit],
+		std-input > a + button,
+		std-input > a + [type=submit],
+		std-input > i + a + button,
+		std-input > i + a + [type=submit],
+		std-input > i + button,
+		std-input > i + [type=submit] {
+			padding-left:var(--stdin-input-height);
+			padding-right:var(--stdin-input-height);
+		}
 		std-input[small] > a + select + label::after,
 		std-input[small] > i + a + select + label::after,
 		std-input[small] > a + i + select + label::after,
@@ -210,6 +221,17 @@ std-form {
 		std-input[small] > i + a + [type=file] + label,
 		std-input[small] > a + i + [type=file] + label {
 			padding-right:calc( var(--stdin-input-height-small) * 2 );
+		}
+		std-input[small] > a + i + button,
+		std-input[small] > a + i + [type=submit],
+		std-input[small] > a + button,
+		std-input[small] > a + [type=submit],
+		std-input[small] > i + a + button,
+		std-input[small] > i + a + [type=submit],
+		std-input[small] > i + button,
+		std-input[small] > i + [type=submit] {
+			padding-left:var(--stdin-input-height-small);
+			padding-right:var(--stdin-input-height-small);
 		}
 	/* buttons */
 		std-input > [type=submit],

@@ -6,11 +6,11 @@
 	--stdin-font-size-base:14px;
 	--stdin-font-size-ratio:1.4;
 
-	--stdin-font-size-s:calc(var(--stdin-font-size-base) / var(--stdin-font-size-ratio));
-	--stdin-font-size-m:var(--stdin-font-size-base);
-	--stdin-font-size:var(--stdin-font-size-m);
-	--stdin-font-size-l:calc(var(--stdin-font-size-m)  * var(--stdin-font-size-ratio));
-	--stdin-font-size-xl:calc(var(--stdin-font-size-l)  * var(--stdin-font-size-ratio));
+	--stdin-font-size-s:  calc(var(--stdin-font-size-base) / var(--stdin-font-size-ratio));
+	--stdin-font-size-m:  var(--stdin-font-size-base);
+	--stdin-font-size:    var(--stdin-font-size-m);
+	--stdin-font-size-l:  calc(var(--stdin-font-size-m)  * var(--stdin-font-size-ratio));
+	--stdin-font-size-xl: calc(var(--stdin-font-size-l)  * var(--stdin-font-size-ratio));
 	--stdin-font-size-xxl:calc(var(--stdin-font-size-xl) * var(--stdin-font-size-ratio));
 
 	--stdin-input:#f7f7f7;
@@ -69,8 +69,10 @@
 	--stdin-constructive-active:#1aad71;
 
 	--stdin-loader-size:20px;
+	--stdin-loader-size-small:16px;
 	--stdin-loader-size-big:40px;
 	--stdin-loader-spacing:calc( (var(--stdin-input-height) - var(--stdin-loader-size)) * 0.5 );
+	--stdin-loader-spacing-small:calc( (var(--stdin-input-height-small) - var(--stdin-loader-size-small)) * 0.5 );
 
 	--stdin-modal-background:#00000044;
 }

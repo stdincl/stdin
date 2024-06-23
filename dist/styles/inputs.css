@@ -130,9 +130,9 @@ std-form {
 		}
 		std-input > select + label,
 		std-input > [type=file] + label {
-			display:flex;
-			flex-direction:column;
-			justify-content:center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			pointer-events:none;
 			position:relative;
 			white-space:nowrap;
@@ -470,6 +470,12 @@ std-form {
 			    
 			    transition:0.4s;
 			    opacity:0;
+			}
+			std-input[small]::after {
+			    right:var(--stdin-loader-spacing-small);
+			    top:var(--stdin-loader-spacing-small);
+			    width:var(--stdin-loader-size-small);
+			    height:var(--stdin-loader-size-small);
 			}
 			std-input[loading]::after {
 			    animation:stdinput-animation-spin 1s linear infinite;

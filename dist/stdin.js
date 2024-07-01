@@ -643,13 +643,13 @@ $.fn.input = function(){
 				stdInput.attr('std-started','');
 
 				stdInput.find('select').on('update',function(){
-					$(this).next('label').text($(this).find('option:selected').text());
+					$(this).next('label').html('<b>'+$(this).find('option:selected').text().normalize()+'</b>');
 				}).on('change',function(){
 					$(this).trigger('update');
 				}).trigger('update');
 
 				stdInput.find('[type=file]').on('update',function(){
-					$(this).next('label').text($(this).val().replaceAll('\\','/').split('/').pop());
+					$(this).next('label').html('<b>'+$(this).val().replaceAll('\\','/').split('/').pop()+'</b>');
 				}).on('change',function(){
 					$(this).trigger('update');
 				}).trigger('update');
@@ -665,4 +665,4 @@ $.fn.input = function(){
 		}
 	});
 };
-$(()=>$('body').input());
+$(()=>{ $('body').input(); });

@@ -15,14 +15,17 @@ std-form {
 			flex-direction:row;
 			gap:15px;
 			position:relative;
+			width:100%;
+			overflow:hidden;
 		}
-			std-inputs > std-input {
-				flex:1;
-			}
+		std-inputs:has(> label:first-child) {
+			overflow:visible;
+		}
 		std-input {
 			display:flex;
 			flex-direction:column;
-			position:relative
+			position:relative;
+			width:100%;
 		}
 	/* labels */
 		std-input > label:first-child,
@@ -114,6 +117,7 @@ std-form {
 		std-input > textarea {
 			height:150px;
 			line-height:1.4;
+			padding-top:10px;
 		}
 	/* select and file (masked) */
 		std-input > select,
@@ -143,6 +147,16 @@ std-form {
 		std-input[small] > select + label,
 		std-input[small] > [type=file] + label {
 			padding-right:var(--stdin-input-height-small);
+		}
+		std-input[small] > select + label > b,
+		std-input[small] > [type=file] + label > b {
+			display: block;
+		    text-overflow: ellipsis;
+		    align-items: center;
+		    overflow: hidden;
+		    font-weight:inherit;
+		    font:inherit;
+		    color:inherit;
 		}
 		std-input > select + label:empty::before {
 			display:inline;
@@ -272,6 +286,8 @@ std-form {
 		}
 		std-input > [type=checkbox] + label,
 		std-input > [type=radio] + label {
+			display:flex;
+			align-items:center;
 			border-color:transparent;
 			background:no-repeat;
 			cursor:pointer;

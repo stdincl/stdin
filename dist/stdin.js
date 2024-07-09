@@ -108,7 +108,7 @@ Date.prototype.toDateString = function(){
 	return [this.getFullYear(),m,d].join('-');
 };
 Date.prototype.diffDays = function(otherDate){ 
-	return Math.ceil((otherDate.toDate().getTime()-this.toDate().getTime())/(1000*60*60*24));
+	return Math.ceil((otherDate.toDate().getTime()-this.toDate().getTime()) / (1000 * 60 * 60 * 24));
 };
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -142,6 +142,7 @@ window.STDin = {
 			placeholder:'Valor',
 			modifiers:[],
 			type:"text",
+			value:'',
 
 			cancelable:true,
 
@@ -183,7 +184,8 @@ window.STDin = {
 			e.preventDefault();
 			modal.close();
 			modal.trigger('resolve',[$(this).parents('std-form').find('.stdin-prompt-value-holder').val()]).trigger('accept');
-		}).get(0).focus();
+		});
+		modal.find('.stdin-prompt-value-holder').val(settings.value).get(0).focus();
 		return modal;
 	},
 	alert:function(settings){

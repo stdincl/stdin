@@ -18,7 +18,8 @@ std-form {
 			width:100%;
 			overflow:hidden;
 		}
-		std-inputs:has(> label:first-child) {
+		std-inputs:has(> label:first-child),
+		std-inputs:has(std-options) {
 			overflow:visible;
 		}
 		std-input {

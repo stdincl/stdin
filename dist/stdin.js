@@ -108,7 +108,7 @@ Date.prototype.toDateString = function(){
 	return [this.getFullYear(),m,d].join('-');
 };
 Date.prototype.diffDays = function(otherDate){ 
-	return ((otherDate.toDate().getTime()-this.getTime())/(1000 * 3600 * 24))+1;
+	return Math.ceil((otherDate.toDate().getTime()-this.toDate().getTime())/(1000*60*60*24));
 };
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -607,7 +607,7 @@ $.fn.dropdown = function(){
 						}
 						let item = ['<std-item',(deletable?' deletable':''),'></std-item>'].$().appendTo(stdItems);
 								   ['<span></span>'].$().text(option.text.normalize()).appendTo(item);
-								   ['<input type="hidden" />'].$().attr('name',$(this).attr('dropdown-name')+'[]').val(option.value).appendTo(item);
+								   ['<input type="hidden" />'].$().attr('name',$(this).attr('dropdown-name')+'[]').val(option.value.normalize()).appendTo(item);
 						if(deletable){
 							item.on('click',function(e){
 								e.preventDefault();
@@ -627,8 +627,8 @@ $.fn.dropdown = function(){
 						}
 					}else{
 						// setear el valor de texto y value en los inputs creados
-						$(this).siblings('[dropdown-value]').val(option.value);
-						$(this).val(option.text);
+						$(this).siblings('[dropdown-value]').val(option.value.normalize());
+						$(this).val(option.text.normalize());
 					}
 				}
 			});
@@ -665,4 +665,6 @@ $.fn.input = function(){
 		}
 	});
 };
-$(()=>{ $('body').input(); });
+$(()=>{
+	$('body').input();
+});

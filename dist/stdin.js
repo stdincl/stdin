@@ -144,6 +144,8 @@ window.STDin = {
 			type:"text",
 			value:'',
 
+			onEnterSubmit:true,
+
 			cancelable:true,
 
 			destructive:false,
@@ -175,6 +177,13 @@ window.STDin = {
 				'</std-inputs>',
 			'</std-form>'
 		].$().modal(settings);
+		if(settings.onEnterSubmit){
+			modal.find('.stdin-prompt-value-holder').on('keydown',function(e){
+				if(e.keyCode==13){
+					$(this).parent('std-form').find('[type=submit]').trigger('click');
+				}
+			});
+		}
 		modal.find('[type=button]').on('click',function(e){
 			e.preventDefault();
 			modal.close();

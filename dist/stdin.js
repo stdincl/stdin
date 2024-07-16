@@ -180,7 +180,7 @@ window.STDin = {
 		if(settings.onEnterSubmit){
 			modal.find('.stdin-prompt-value-holder').on('keydown',function(e){
 				if(e.keyCode==13){
-					$(this).parent('std-form').find('[type=submit]').trigger('click');
+					$(this).parents('std-form').find('[type=submit]').trigger('click');
 				}
 			});
 		}

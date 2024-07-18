@@ -247,6 +247,7 @@ window.STDin = {
 			});
 			modal.trigger('resolve',promptValues).trigger('accept');
 		});
+		modal.find('[stdin-prompt-values] > std-input:first-child input').get(0)?.focus();
 		return modal;
 	},
 	alert:function(settings){

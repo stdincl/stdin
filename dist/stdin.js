@@ -143,15 +143,31 @@ window.STDin = {
 			modifiers:[],
 			type:"text",
 			value:'',
-
 			onEnterSubmit:true,
-
 			cancelable:true,
-
 			destructive:false,
 			closable:false,
 			accept:'accept',
 			reject:'reject',
+
+			prompts:[
+				/*
+				{
+					type:'select' | mixed,
+					label:string,
+					placeholder:string,
+					value:mixed,
+					options:[
+						{
+							text:string,
+							value:string
+						},
+						...
+					]
+				},
+				...
+				*/
+			],
 		},settings);
 		let modal = [
 			'<std-form>',
@@ -159,11 +175,36 @@ window.STDin = {
 					'<label>',STDin.translate(settings.subtitle).nl2br(),'</label>',
 					'<p>',STDin.translate(settings.message).nl2br(),'</p>',
 				'</std-input>',
-				'<std-input ',settings.modifiers.join(' '),'>',
-					'<label>',STDin.translate(settings.label).nl2br(),'</label>',
-					'<input class="stdin-prompt-value-holder" type="',settings.type,'" placeholder="',STDin.translate(settings.placeholder),'" />',
-				'</std-input>',
-				'<std-inputs>',
+				'<std-inputs stdin-prompt-values column>',
+					(
+						settings.prompts.length>0?'':[
+							'<std-input ',settings.modifiers.join(' '),'>',
+								'<label>',STDin.translate(settings.label).nl2br(),'</label>',
+								'<input class="stdin-default-value-holder" type="',settings.type,'" placeholder="',STDin.translate(settings.placeholder),'" />',
+							'</std-input>',
+						].join('')
+					),
+					settings.prompts.map((p)=>{
+						return [
+							'<std-input>',
+								'<label>',STDin.translate(p.label).nl2br(),'</label>',
+								(
+									p.type=='select'?[
+										'<select>',
+											p.options.map((option)=>{
+												return ['<option value="',option.value,'">',option.text,'</option>'].join('');
+											}).join(''),
+										'</select>',
+										'<label></label>'
+									].join(''):[
+										'<input type="',p.type,'" placeholder="',STDin.translate(p.placeholder),'" />',
+									].join('')
+								),
+							'</std-input>',
+						].join('');
+					}).join(''),
+				'</std-inputs>',
+				'<std-inputs stdin-prompt-end-actions>',
 					(
 						settings.cancelable?[
 							'<std-input>',
@@ -177,24 +218,35 @@ window.STDin = {
 				'</std-inputs>',
 			'</std-form>'
 		].$().modal(settings);
+		if(settings.prompts.length>0){
+			var promptInputs = modal.find('std-inputs[column] > std-input');
+			settings.prompts.forEach((p,i)=>{
+				$(promptInputs[i]).find('input,select').val(p.value).trigger('update');
+			});	
+		}else{
+			modal.find('[stdin-prompt-values] input').val(settings.value).get(0)?.focus();
+		}
 		if(settings.onEnterSubmit){
-			modal.find('.stdin-prompt-value-holder').on('keydown',function(e){
+			modal.find('[stdin-prompt-values] > std-input input').on('keydown',function(e){
 				if(e.keyCode==13){
 					$(this).parents('std-form').find('[type=submit]').trigger('click');
 				}
 			});
 		}
-		modal.find('[type=button]').on('click',function(e){
+		modal.find('[stdin-prompt-end-actions] [type=button]').on('click',function(e){
 			e.preventDefault();
 			modal.close();
 			modal.trigger('reject');
 		});
-		modal.find('[type=submit]').on('click',function(e){
+		modal.find('[stdin-prompt-end-actions] [type=submit]').on('click',function(e){
 			e.preventDefault();
 			modal.close();
-			modal.trigger('resolve',[$(this).parents('std-form').find('.stdin-prompt-value-holder').val()]).trigger('accept');
+			var promptValues = [];
+			$.each(modal.find('[stdin-prompt-values] input,[stdin-prompt-values] select'),(i,valueHolder)=>{
+				promptValues.push($(valueHolder).val());
+			});
+			modal.trigger('resolve',promptValues).trigger('accept');
 		});
-		modal.find('.stdin-prompt-value-holder').val(settings.value).get(0).focus();
 		return modal;
 	},
 	alert:function(settings){

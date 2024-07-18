@@ -46,6 +46,9 @@ std-form {
 		std-inputs > label:first-child:empty {
 			display:none;
 		}
+		std-inputs[column] {
+			flex-direction:column;
+		}
 	/* generic */
 		std-input > [type=text],
 		std-input > [type=email],

@@ -44,6 +44,13 @@ String.prototype.normalize = function(){
 String.prototype.path = function(object){ 
 	return this.split('/').reduce((t,i)=>t?(t[i]?t[i]:''):'',object);
 };
+String.prototype.$ = function(object){
+	var str = this.toString();
+	Object.keys(object).forEach((key)=>{
+		str = str.replaceAll('{{'+key+'}}',(object[key]+''));
+	})
+	return $(str);
+};
 Array.prototype.mapID = function(varName,property) {
     return varName + this.map(function(e){ return '['+e[property]+']'; }).join('');
 };
